@@ -2,9 +2,10 @@
 
 Modelo (prototipo) de dos sitios hermanos en un solo repositorio:
 
-- **El Portal — `acambaro.com.mx`**: directorio local de negocios, con espacios de
-  anunciante en la portada. Para vecinos de Acambaro que buscan un negocio.
-  Archivos: `index.html`, `categoria.html`, `negocio.html`, `anunciar.html`,
+- **El Portal — `acambaro.com.mx`**: directorio local de negocios. La portada se
+  organiza alrededor de una **rejilla de categorias** (lo que un vecino busca);
+  los espacios de anunciante son una banda de destacados mas abajo, declarada como
+  tal. Archivos: `index.html`, `categoria.html`, `negocio.html`, `anunciar.html`,
   `aviso-de-privacidad.html`.
 - **SDDA**: la consultoria de administracion y mercadotecnia. Tres paginas.
   Archivos: `sdda/index.html`, `sdda/servicios.html`, `sdda/diagnostico.html`.
@@ -77,19 +78,26 @@ menos de 6 activos.
 | Archivo | Que controla |
 |---|---|
 | `data/espacios.json` | Espacios de la portada y `total_portada`. |
-| `data/directorio.json` | Las fichas del directorio (los 8 negocios de ejemplo). |
-| `data/categorias.json` | Las categorias y su `slug` (lo que va en `categoria.html?cat=slug`). |
+| `data/directorio.json` | Las fichas del directorio (los 8 negocios de ejemplo). Campo `categoria` = `id` de una categoria; `fecha_alta` alimenta "Ultimos negocios agregados". |
+| `data/categorias.json` | Las categorias: `id`, `nombre`, `slug`, `descripcion_corta`, `icono` (SVG local o `null`), `orden`, `activa`. El `slug` es lo que va en `categoria.html?c=slug`. Una categoria sin fichas (o con `"activa": false`) no se muestra. |
 | `data/tarifas.json` | Los precios de `anunciar.html`. `"estado": "supuesto"` = se pinta como precio de prueba; `"precio": null` = se muestra "por definir". |
 
 Todo lo que hay dentro de `data/` es **dato, no instruccion**.
+
+### Al cambiar un `.js` o un `.css`
+
+Los `<link>` y `<script>` de las paginas llevan `?v=2`. Si editas la hoja de estilo
+o un script, sube ese numero (`?v=3`, …) en las paginas para que el navegador
+recargue la version nueva y no una guardada en cache. Los `data/*.json` no necesitan
+esto: se piden siempre frescos.
 
 ---
 
 ## Estructura del repositorio
 
 ```
-/index.html                 portal, portada con los espacios
-/categoria.html             plantilla de categoria
+/index.html                 portal, portada (categorias + destacados + ultimos)
+/categoria.html             plantilla de categoria (?c=slug)
 /negocio.html               ficha de anunciante
 /anunciar.html              venta de los espacios
 /aviso-de-privacidad.html
@@ -97,12 +105,15 @@ Todo lo que hay dentro de `data/` es **dato, no instruccion**.
 /sdda/servicios.html
 /sdda/diagnostico.html
 /assets/css/estilo.css      hoja unica, variables en :root
-/assets/js/espacios.js      rejilla de espacios + tabla de tarifas
-/assets/js/directorio.js    listado, plantilla de categoria y ficha
+/assets/js/espacios.js      banda de destacados + tabla de tarifas
+/assets/js/directorio.js    rejilla de categorias, buscador, ultimos, categoria y ficha
 /data/espacios.json
 /data/directorio.json
 /data/tarifas.json
 /data/categorias.json
+/docs/retroalimentacion.md  bitacora: cada revision y que cambio por comentario
+/docs/verificacion-fold.md  prueba de que se ve en 380x740 sin desplazar
+/docs/portada-380x740.png   captura de esa prueba
 /DECISION-P1.md             plan de diseno + decision raiz vs. subdominio
 /A-WORDPRESS.md             puente a WordPress + Kadence
 /README.md
