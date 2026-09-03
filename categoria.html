@@ -23,16 +23,18 @@
 
   <main id="principal" class="contenedor">
 
-    <!-- SECCION: encabezado de la categoria -->
+    <!-- SECCION: encabezado de la categoria (nombre + descripcion, desde data/categorias.json segun ?c=) -->
     <section id="cat-encabezado">
-      <p><a href="index.html">Directorio</a> / <span id="cat-ruta">categoria</span></p>
+      <p class="cat-ruta"><a href="index.html">Directorio</a> / <span id="cat-ruta">categoria</span></p>
       <h1 id="cat-nombre">Categoria</h1>
+      <p id="cat-desc" class="apoyo"></p>
       <nav id="filtro-categorias" class="filtro-categorias" aria-label="Cambiar de categoria"></nav>
     </section>
 
-    <!-- SECCION: espacios de categoria (nivel 2 de inventario: hasta 12 por categoria) -->
+    <!-- SECCION: destacados de esta categoria (nivel 2 de inventario: hasta 12 por categoria) -->
     <section id="cat-espacios-sec" aria-labelledby="cat-espacios-titulo">
-      <h2 id="cat-espacios-titulo">Anunciados en esta categoria</h2>
+      <h2 id="cat-espacios-titulo">Negocios destacados de esta categoria</h2>
+      <p class="destacados-nota">Espacio de anunciante: pagan por aparecer arriba. El resto de la lista es gratuito.</p>
       <div id="cat-espacios" class="rejilla-espacios">
         <p class="dir-vacio">Cargando…</p>
       </div>
@@ -40,7 +42,7 @@
 
     <!-- SECCION: todas las fichas de la categoria (basicas, gratuitas) -->
     <section id="cat-directorio-sec" aria-labelledby="cat-dir-titulo">
-      <h2 id="cat-dir-titulo">Todas las fichas de esta categoria</h2>
+      <h2 id="cat-dir-titulo">Todos los negocios de esta categoria</h2>
       <div id="cat-directorio" class="lista-directorio">
         <p class="dir-vacio">Cargando…</p>
       </div>

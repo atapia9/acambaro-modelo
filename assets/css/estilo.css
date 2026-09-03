@@ -234,6 +234,11 @@ section { padding-block: 1.75rem; }
 }
 .franja-anunciar a { color: var(--azul); font-weight: 700; }
 
+/* Migaja de pan de la pagina de categoria */
+.cat-ruta { font-size: 0.85rem; color: var(--gris-fuerte); margin: 0 0 0.25rem; }
+.cat-ruta a { color: var(--azul); }
+#cat-desc:empty { display: none; }
+
 /* ----- 7. Portal: rejilla de espacios de anunciante ----- */
 /* El numero de espacios NO vive aqui: lo pone data/espacios.json.
    2 columnas en celular, 3 en tableta, 4 en escritorio. */
