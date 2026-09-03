@@ -1,0 +1,18 @@
+{
+  "_comentario": "Los espacios de portada del portal. Para comparar inventarios, cambia SOLO 'total_portada' (12, 24, 48) y recarga: la rejilla se reacomoda sola. La posicion 8 (ej-006) tiene vigencia_fin pasada a proposito: sirve para ver la regla 'vencido = libre'.",
+  "total_portada": 12,
+  "espacios": [
+    { "posicion": 1, "estado": "activo", "negocio_id": "ej-001", "vigencia_fin": "2026-12-31" },
+    { "posicion": 2, "estado": "activo", "negocio_id": "ej-002", "vigencia_fin": "2026-11-30" },
+    { "posicion": 3, "estado": "libre" },
+    { "posicion": 4, "estado": "activo", "negocio_id": "ej-003", "vigencia_fin": "2026-12-31" },
+    { "posicion": 5, "estado": "activo", "negocio_id": "ej-004", "vigencia_fin": "2027-03-31" },
+    { "posicion": 6, "estado": "libre" },
+    { "posicion": 7, "estado": "activo", "negocio_id": "ej-005", "vigencia_fin": "2026-10-31" },
+    { "posicion": 8, "estado": "activo", "negocio_id": "ej-006", "vigencia_fin": "2025-08-31" },
+    { "posicion": 9, "estado": "activo", "negocio_id": "ej-007", "vigencia_fin": "2026-12-31" },
+    { "posicion": 10, "estado": "libre" },
+    { "posicion": 11, "estado": "activo", "negocio_id": "ej-008", "vigencia_fin": "2027-01-31" },
+    { "posicion": 12, "estado": "libre" }
+  ]
+}

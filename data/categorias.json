@@ -1,0 +1,13 @@
+{
+  "_comentario": "Categorias del directorio. El 'slug' es lo que va en categoria.html?cat=slug.",
+  "categorias": [
+    { "id": "alimentos",  "nombre": "Alimentos y abarrotes",        "slug": "alimentos" },
+    { "id": "automotriz", "nombre": "Automotriz y refacciones",     "slug": "automotriz" },
+    { "id": "belleza",    "nombre": "Belleza y cuidado personal",   "slug": "belleza" },
+    { "id": "ferreteria", "nombre": "Ferreteria y construccion",    "slug": "ferreteria" },
+    { "id": "hogar",      "nombre": "Hogar y servicios",            "slug": "hogar" },
+    { "id": "mascotas",   "nombre": "Mascotas y veterinaria",       "slug": "mascotas" },
+    { "id": "panaderia",  "nombre": "Panaderia y reposteria",       "slug": "panaderia" },
+    { "id": "transporte", "nombre": "Transporte y bicicletas",      "slug": "transporte" }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "_comentario": "Precios de los espacios de anunciante. Mientras un renglon tenga estado 'supuesto', anunciar.html lo pinta con la marca 'precio de prueba'. Si 'precio' es null, se muestra 'por definir'. NO se ha confirmado ninguna de estas cifras.",
+  "moneda": "MXN",
+  "tarifas": [
+    {
+      "id": "portada-mensual",
+      "nivel": "Portada",
+      "nombre": "Espacio en portada (1 de 12)",
+      "periodo": "mensual",
+      "precio": 1800,
+      "estado": "supuesto"
+    },
+    {
+      "id": "portada-anual",
+      "nivel": "Portada",
+      "nombre": "Espacio en portada (1 de 12)",
+      "periodo": "anual",
+      "precio": 18000,
+      "estado": "supuesto"
+    },
+    {
+      "id": "categoria-mensual",
+      "nivel": "Categoria",
+      "nombre": "Espacio en categoria (hasta 12 por categoria)",
+      "periodo": "mensual",
+      "precio": 600,
+      "estado": "supuesto"
+    },
+    {
+      "id": "categoria-anual",
+      "nivel": "Categoria",
+      "nombre": "Espacio en categoria (hasta 12 por categoria)",
+      "periodo": "anual",
+      "precio": null,
+      "estado": "por definir"
+    },
+    {
+      "id": "ficha-basica",
+      "nivel": "Ficha basica",
+      "nombre": "Ficha en el directorio",
+      "periodo": "siempre",
+      "precio": 0,
+      "estado": "firme"
+    }
+  ]
+}
