@@ -1,0 +1,11 @@
+# Secretos: nunca subir
+.env
+.env.*
+*.key
+*.pem
+
+# Sistema
+.DS_Store
+
+# Dependencias (no se usan, pero por si acaso)
+node_modules/
