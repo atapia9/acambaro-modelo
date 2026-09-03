@@ -135,18 +135,19 @@ posicion, el negocio y la fecha. En produccion eso ira a una tabla propia; ver
 
 Repositorio publico, rama `main`, servido desde la raiz.
 
-**URL de GitHub Pages:** _pendiente de activar_ — ver
-[instrucciones de publicacion abajo](#pasos-para-publicar).
+**URL de GitHub Pages:** <https://atapia9.github.io/acambaro-modelo/>
 
-### Pasos para publicar
+Repositorio: <https://github.com/atapia9/acambaro-modelo> · rama `main` · raiz.
 
-1. Crear el repositorio publico en GitHub (por ejemplo `acambaro-modelo`).
-2. `git remote add origin git@github.com:<usuario>/acambaro-modelo.git`
-3. `git push -u origin main`
-4. En GitHub: **Settings -> Pages -> Build and deployment -> Source: Deploy from a
-   branch -> Branch: `main` / `(root)` -> Save**.
-5. A los pocos minutos la URL sera
-   `https://<usuario>.github.io/acambaro-modelo/`. Ponla en este README arriba.
+### Volver a publicar un cambio
+
+```bash
+git add -A
+git commit -m "..."
+git push
+```
+
+GitHub Pages reconstruye solo en 1-2 minutos despues del push.
 
 ---
 
