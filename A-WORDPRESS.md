@@ -14,8 +14,10 @@ WordPress es copiar contenido a bloques, no reprogramar.
 
 | Elemento del modelo | En WordPress se vuelve | Campos (ACF o meta) |
 |---|---|---|
-| `data/directorio.json` → cada ficha | **CPT `anunciante`** (Custom Post Type) | `ficticio` (true/false), `giro` (texto), `categoria` (taxonomía), `descripcion` (texto), `direccion` (texto), `telefono` (texto), `whatsapp` (texto, solo dígitos), `horario` (texto), `espacio_portada` (número, opcional) |
-| `data/categorias.json` | **Taxonomía `categoria-negocio`** ligada al CPT `anunciante` | `nombre`, `slug` |
+| `data/directorio.json` → cada ficha | **CPT `anunciante`** (Custom Post Type) | `ficticio` (true/false), `giro` (texto), `categoria` (taxonomía `categoria-negocio`), `descripcion` (texto), `direccion` (texto), `telefono` (texto), `whatsapp` (texto, solo dígitos), `horario` (texto), `espacio_portada` (número, opcional), `fecha_alta` → se mapea al **`post_date`** de la entrada (se usa para "Últimos negocios agregados") |
+| `data/categorias.json` | **Taxonomía propia `categoria-negocio`** (jerárquica, registrada por código en el tema hijo o un plugin), ligada al CPT `anunciante` | `nombre` → nombre del término; `slug` → slug del término; `descripcion_corta` → descripción del término (o term meta `descripcion_corta`); `icono` → term meta `icono` (URL de SVG local en la biblioteca de medios, o vacío); `orden` → `term_order` / term meta `orden` (para ordenar la rejilla); `activa` → term meta `activa` (un término inactivo no se pinta, además de la regla "sin fichas no se muestra") |
+| Rejilla de categorías de la portada | **Bloque dinámico a medida** `sdda/rejilla-categorias` (o patrón + Query Loop de términos) | Recorre los términos de `categoria-negocio` con `activa != false` y `count > 0`, ordenados por `orden`; cada tarjeta enlaza a `/categoria-negocio/<slug>/` y muestra `count`. |
+| Conteo por categoría | `get_term()->count` nativo de WordPress | No hay que calcularlo: WordPress lo mantiene. |
 | `data/espacios.json` → `total_portada` | **Opción del sitio** `sdda_total_portada` (Ajustes → o campo de opciones ACF) | número entero |
 | `data/espacios.json` → cada posición | **Meta del CPT `anunciante`**: `posicion_portada`, `estado_espacio` (activo/libre), `vigencia_fin` (fecha) | — |
 | `data/tarifas.json` → cada renglón | **CPT `tarifa`** o repetidor ACF en la página Anunciar | `nivel`, `nombre`, `periodo`, `precio` (número o vacío), `estado` (supuesto/firme/por-definir) |
@@ -25,29 +27,39 @@ WordPress es copiar contenido a bloques, no reprogramar.
 
 ## 2. Portal — `index.html`
 
+Orden de la portada tras la Actualización 01 (la rejilla de categorías es el contenido
+principal; la banda de anunciantes ya no abre la página):
+
 | Sección HTML (`id`) | Bloque Kadence / WordPress | Notas de traducción |
 |---|---|---|
 | `<header class="cabecera">` | Kadence **Header** (Encabezado) global del portal | Logo de texto "acambaro.com.mx" + navegación. |
-| `#portada-intro` | Bloque **Párrafo** + **Título** dentro de un **Row Layout** de 1 columna | Una frase: qué es el portal y qué hacer. Sin imagen. |
-| `#rejilla-espacios` | **Bloque dinámico a medida** `sdda/espacios-portada` (patrón + shortcode/plugin) que consulta el CPT `anunciante` filtrando `estado_espacio=activo` y `vigencia_fin>=hoy`, ordenado por `posicion_portada` | La lógica del `espacios.js` (no dibujar huecos, tarjeta-resumen "Quedan N de 12", tira si <6, vencido = libre) pasa a PHP en el render del bloque. `total_portada` se lee de la opción del sitio. |
+| `#portada-intro` (a + b) | Bloque **Título** (H1) + **Párrafo** en un **Row Layout** de 1 columna | H1 "qué encuentro aquí" + línea de apoyo "para quién es". Sin imagen. Encabezado corto a propósito (ver `docs/verificacion-fold.md`). |
+| `#buscador-sec` (c) | **Search** de Kadence (por nombre) + un **selector de términos** de `categoria-negocio` | En el modelo es JS en la misma página; en WP: buscador nativo filtrando el CPT `anunciante` y un `<select>` que navega al archivo de la taxonomía. |
+| `#categorias-sec` → `#rejilla-categorias` (d) | **Bloque dinámico** `sdda/rejilla-categorias` (ver tabla 1) | Contenido principal. Términos con `activa != false` y `count > 0`, ordenados por `orden`, con conteo por tarjeta. |
+| `#destacados-sec` → `#rejilla-espacios` (e) | **Bloque dinámico** `sdda/espacios-portada` que consulta `anunciante` con `estado_espacio=activo` y `vigencia_fin>=hoy`, ordenado por `posicion_portada` | La lógica de `espacios.js` (no dibujar huecos; tarjeta-resumen "Quedan N de 12"; tira si <6; vencido = libre; **en móvil 6 + "ver los demás", en escritorio todos**) pasa a PHP. `total_portada` se lee de la opción del sitio. El encabezado de la sección declara que es espacio de anunciante. |
 | Tarjeta-resumen "Quedan N de 12" | Parte del mismo bloque dinámico | Enlace a la página **Anunciar**. |
-| `#lista-directorio` | **Kadence Posts / Query Loop** sobre el CPT `anunciante` | Lista compacta, plantilla de entrada mínima (nombre, giro, categoría, etiqueta "Negocio de ejemplo" si `ficticio`). |
-| `#llamada-anunciar` | **Row Layout** de 1 columna con **Botón** de Kadence | Fondo ámbar. Enlace a Anunciar. |
+| `#ultimos-sec` → `#ultimos-negocios` (f) | **Kadence Posts / Query Loop** sobre `anunciante`, orden por fecha (`post_date`) descendente, límite 5 | Lista compacta (nombre, giro, categoría, etiqueta "Negocio de ejemplo" si `ficticio`). |
+| `#franja-anunciar` (g) | **Párrafo** con enlace (discreto, sin fondo) | Enlace a Anunciar. |
 | `<footer>` | Kadence **Footer** global | Enlace a Aviso de privacidad. |
 
 ---
 
 ## 3. Portal — `categoria.html` (plantilla de categoría)
 
+En el modelo la URL es `/categoria.html?c=<slug>` (se acepta `?cat=` por compatibilidad).
+En WordPress es el **archivo de la taxonomía**: `/categoria-negocio/<slug>/`.
+
 | Sección HTML | Bloque Kadence / WordPress | Notas |
 |---|---|---|
 | `<header>` | Header global | — |
-| `#cat-encabezado` | **Título de archivo** (plantilla de taxonomía en Kadence Elements) | Toma el nombre de la taxonomía `categoria-negocio`. |
-| `#cat-espacios` | Bloque dinámico `sdda/espacios-categoria` (hasta 12 por categoría) | Misma lógica de rejilla que portada, acotada a la categoría. |
-| `#cat-directorio` | **Query Loop** filtrado por el término de taxonomía actual | Fichas básicas (gratuitas, sin límite). |
+| `#cat-encabezado` → `#cat-nombre` | **Título de archivo** dinámico | Nombre del término actual de `categoria-negocio`. |
+| `#cat-encabezado` → `#cat-desc` | Bloque **Descripción de archivo** (o term meta `descripcion_corta`) | Descripción corta del término. |
+| `#filtro-categorias` | **Lista de términos** de `categoria-negocio` (solo con `count > 0`), término actual resaltado | — |
+| `#cat-espacios` | Bloque dinámico `sdda/espacios-categoria` (hasta 12 por categoría) | Misma lógica de rejilla que la portada, acotada al término. Encabezado que lo declara como espacio de anunciante. |
+| `#cat-directorio` | **Query Loop** filtrado por el término actual | Fichas básicas (gratuitas, sin límite). |
 | `<footer>` | Footer global | — |
 
-Se implementa como **Kadence Element → Template → Category/Taxonomy Archive** para `categoria-negocio`.
+Se implementa como **Kadence Element → Template → Taxonomy Archive** para `categoria-negocio`.
 
 ---
 
@@ -128,6 +140,7 @@ quiere reusar el mismo texto en la portada de SDDA.
 | Archivo del modelo | En WordPress |
 |---|---|
 | `assets/css/estilo.css` | Se parte: variables `:root` y estilos base → **Kadence → Ajustes globales** (colores, tipografía) + CSS adicional del tema hijo. Estilos de la rejilla de espacios → CSS del plugin `sdda/espacios`. |
-| `assets/js/espacios.js` | Lógica → render PHP del bloque dinámico. El registro de clic → endpoint AJAX/REST que escribe en `wp_sdda_clics`. |
-| `assets/js/directorio.js` | Sustituido por **Query Loop** nativo de Kadence; no se migra el JS. |
-| `data/*.json` | Datos semilla para poblar los CPT y las opciones al montar el sitio (script de importación de una sola vez). |
+| `assets/js/espacios.js` | Lógica → render PHP del bloque dinámico `sdda/espacios-*`. El registro de clic → endpoint AJAX/REST que escribe en `wp_sdda_clics`. El recorte "6 + ver los demás" en móvil → media query + `<details>` o un poco de JS del tema. |
+| `assets/js/directorio.js` | Rejilla de categorías y "últimos" → bloques dinámicos / Query Loop de Kadence. Buscador → búsqueda nativa + selector de términos. No se migra el JS. |
+| `?v=2` en los `<link>`/`<script>` | En WordPress lo maneja `wp_enqueue_*` con su parámetro de versión; el `?v=` manual del modelo desaparece. |
+| `data/*.json` | Datos semilla para poblar el CPT, la taxonomía y las opciones al montar el sitio (script de importación de una sola vez). |
