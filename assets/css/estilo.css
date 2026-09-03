@@ -1,0 +1,428 @@
+/* =========================================================================
+   SDDA + Portal Acambaro — hoja unica
+   Movil primero. Ancho de referencia 380 px.
+   Dos colores (--azul, --ambar) + escala de grises. Sin sombras, sin degradados.
+   El portal y SDDA comparten esta hoja; se distinguen por la clase del <body>:
+     <body class="sitio-portal">  -> tablon: denso, rejilla, usa ambar
+     <body class="sitio-sdda">    -> hoja de propuesta: una columna, aireado, sin ambar
+   ========================================================================= */
+
+/* ----- 1. Reset minimo ----- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body, h1, h2, h3, p, ul, ol, li, figure, dl, dd { margin: 0; }
+ul[class], ol[class] { list-style: none; padding: 0; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+button { font: inherit; }
+
+/* ----- 2. Variables ----- */
+:root {
+  /* Los dos colores */
+  --azul: #123f5c;          /* estructura, titulos, enlaces, filetes */
+  --azul-oscuro: #0d2f45;   /* estado hover del azul */
+  --ambar: #f2a900;         /* SOLO relleno de bloque tras texto oscuro (portal) */
+
+  /* Escala de grises */
+  --tinta: #1a1c1f;
+  --gris-fuerte: #5c6166;
+  --gris-medio: #8b9096;
+  --gris-claro: #dde0e2;
+  --gris-fondo: #f5f6f7;
+  --blanco: #ffffff;
+
+  /* Tipografia */
+  --fuente-texto: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fuente-numero: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* Medidas */
+  --ancho-portal: 60rem;
+  --ancho-sdda: 34rem;
+  --espacio: 1rem;
+  --radio: 2px;
+}
+
+/* ----- 3. Base ----- */
+body {
+  font-family: var(--fuente-texto);
+  color: var(--tinta);
+  background: var(--blanco);
+  line-height: 1.5;
+  font-size: 1rem;
+}
+h1, h2, h3 { line-height: 1.2; font-weight: 700; color: var(--azul); }
+h1 { font-size: 1.6rem; }
+h2 { font-size: 1.25rem; }
+h3 { font-size: 1.05rem; }
+p { margin-top: 0.6em; }
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--tinta);
+  outline-offset: 2px;
+}
+
+/* Salto al contenido (accesibilidad con teclado) */
+.saltar {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--azul);
+  color: var(--blanco);
+  padding: 0.5rem 1rem;
+  z-index: 10;
+}
+.saltar:focus { left: 0; }
+
+/* ----- 4. Contenedor ----- */
+.contenedor {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--espacio);
+}
+.sitio-portal .contenedor { max-width: var(--ancho-portal); }
+.sitio-sdda .contenedor { max-width: var(--ancho-sdda); }
+
+section { padding-block: 1.75rem; }
+
+/* ----- 5. Encabezado ----- */
+.cabecera {
+  border-bottom: 2px solid var(--azul);
+  padding-block: 0.75rem;
+}
+.cabecera .contenedor {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 1rem;
+}
+.cabecera__marca {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--azul);
+  text-decoration: none;
+}
+.cabecera__lema {
+  font-size: 0.85rem;
+  color: var(--gris-fuerte);
+}
+.cabecera__nav {
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+}
+.cabecera__nav a { color: var(--azul); text-decoration: none; }
+.cabecera__nav a:hover { text-decoration: underline; }
+
+/* El encabezado de SDDA se ve distinto: barra azul llena, sin lema comercial */
+.cabecera--sdda {
+  background: var(--azul);
+  border-bottom: 0;
+}
+.cabecera--sdda .cabecera__marca,
+.cabecera--sdda .cabecera__nav a { color: var(--blanco); }
+.cabecera--sdda .cabecera__lema { color: #c7d6e0; }
+
+/* ----- 6. Portal: intro ----- */
+.intro-portal p {
+  font-size: 1.05rem;
+  max-width: 46rem;
+}
+
+/* ----- 7. Portal: rejilla de espacios de anunciante ----- */
+/* El numero de espacios NO vive aqui: lo pone data/espacios.json.
+   2 columnas en celular, 3 en tableta, 4 en escritorio. */
+.rejilla-espacios {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+@media (min-width: 600px) {
+  .rejilla-espacios { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+}
+@media (min-width: 960px) {
+  .rejilla-espacios { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Con menos de 6 activos: tira horizontal deslizable (lo activa el JS) */
+.rejilla-espacios.es-tira {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 0.5rem;
+}
+.rejilla-espacios.es-tira > * {
+  flex: 0 0 70%;
+  scroll-snap-align: start;
+}
+@media (min-width: 600px) {
+  .rejilla-espacios.es-tira > * { flex-basis: 40%; }
+}
+
+/* Tarjeta de espacio: el UNICO bloque con relleno ambar del portal */
+.espacio {
+  background: var(--ambar);
+  color: var(--tinta);
+  border-radius: var(--radio);
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  text-decoration: none;
+}
+.espacio:hover { outline: 2px solid var(--tinta); }
+.espacio__negocio { font-weight: 700; font-size: 1rem; color: var(--tinta); }
+.espacio__giro { font-size: 0.85rem; }
+.espacio__pos {
+  font-family: var(--fuente-numero);
+  font-size: 0.75rem;
+  color: var(--azul-oscuro);
+}
+.espacio__wa {
+  margin-top: auto;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--azul-oscuro);
+  text-decoration: underline;
+}
+
+/* Tarjeta-resumen: UNA sola, al final. "Quedan N de 12 lugares" */
+.espacios-resumen {
+  border: 2px solid var(--azul);
+  border-radius: var(--radio);
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--tinta);
+  background: var(--blanco);
+}
+.espacios-resumen:hover { background: var(--gris-fondo); }
+.espacios-resumen__n {
+  font-family: var(--fuente-numero);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--azul);
+}
+.espacios-resumen__cta { font-weight: 700; color: var(--azul); text-decoration: underline; }
+
+/* ----- 8. Etiqueta "Negocio de ejemplo" (dato ficticio) ----- */
+.etq-ejemplo {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  background: var(--tinta);
+  color: var(--blanco);
+  padding: 0.15rem 0.4rem;
+  border-radius: var(--radio);
+}
+.espacio .etq-ejemplo { align-self: flex-start; }
+
+/* ----- 9. Portal: directorio en lista compacta (no tarjetas) ----- */
+.filtro-categorias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.75rem 0 1rem;
+}
+.filtro-categorias a {
+  font-size: 0.85rem;
+  border: 1px solid var(--gris-medio);
+  border-radius: var(--radio);
+  padding: 0.25rem 0.55rem;
+  text-decoration: none;
+  color: var(--azul);
+}
+.filtro-categorias a[aria-current="true"] {
+  background: var(--azul);
+  color: var(--blanco);
+  border-color: var(--azul);
+}
+
+.lista-directorio { border-top: 1px solid var(--gris-claro); }
+.dir-item {
+  border-bottom: 1px solid var(--gris-claro);
+  padding: 0.75rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.6rem;
+}
+.dir-item__nombre {
+  font-weight: 700;
+  color: var(--azul);
+  text-decoration: none;
+  font-size: 1rem;
+}
+.dir-item__nombre:hover { text-decoration: underline; }
+.dir-item__giro { font-size: 0.85rem; color: var(--gris-fuerte); }
+.dir-item__cat {
+  font-size: 0.75rem;
+  color: var(--gris-fuerte);
+  font-family: var(--fuente-numero);
+}
+.dir-vacio { color: var(--gris-fuerte); padding: 1rem 0; }
+
+/* ----- 10. Portal: llamada a anunciar ----- */
+.llamada-anunciar {
+  background: var(--ambar);
+  color: var(--tinta);
+  border-radius: var(--radio);
+  padding: 1rem;
+  margin-block: 1.5rem;
+}
+.llamada-anunciar p { margin-top: 0.25rem; }
+
+/* ----- 11. Boton ----- */
+.boton {
+  display: inline-block;
+  background: var(--azul);
+  color: var(--blanco);
+  text-decoration: none;
+  font-weight: 700;
+  padding: 0.6rem 1rem;
+  border: 2px solid var(--azul);
+  border-radius: var(--radio);
+  margin-top: 0.75rem;
+}
+.boton:hover { background: var(--azul-oscuro); border-color: var(--azul-oscuro); }
+.boton--claro {
+  background: var(--blanco);
+  color: var(--azul);
+}
+.boton--claro:hover { background: var(--gris-fondo); }
+
+/* ----- 12. Ficha de negocio ----- */
+.ficha-datos { border-top: 1px solid var(--gris-claro); margin-top: 1rem; }
+.ficha-datos div {
+  border-bottom: 1px solid var(--gris-claro);
+  padding: 0.6rem 0;
+  display: flex;
+  gap: 0.75rem;
+}
+.ficha-datos dt, .ficha-datos .rotulo {
+  font-weight: 700;
+  min-width: 7rem;
+  color: var(--gris-fuerte);
+  font-size: 0.9rem;
+}
+.ficha-datos .valor { font-size: 0.95rem; }
+.ficha-tel { font-family: var(--fuente-numero); }
+
+/* ----- 13. Anunciar: niveles y tabla de tarifas ----- */
+.niveles {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+@media (min-width: 700px) {
+  .niveles { grid-template-columns: repeat(3, 1fr); }
+  .niveles > div { border-left: 1px solid var(--gris-claro); padding-left: 1rem; }
+  .niveles > div:first-child { border-left: 0; padding-left: 0; }
+}
+
+.tabla-tarifas { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.95rem; }
+.tabla-tarifas th, .tabla-tarifas td {
+  text-align: left;
+  padding: 0.6rem 0.5rem;
+  border-bottom: 1px solid var(--gris-claro);
+  vertical-align: top;
+}
+.tabla-tarifas th { color: var(--gris-fuerte); font-size: 0.8rem; }
+.tabla-tarifas .precio { font-family: var(--fuente-numero); font-weight: 700; white-space: nowrap; }
+
+/* Marca visible de precio de prueba (estado "supuesto") */
+.marca-prueba {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: var(--ambar);
+  color: var(--tinta);
+  padding: 0.1rem 0.35rem;
+  border-radius: var(--radio);
+  margin-left: 0.35rem;
+}
+.precio-pendiente { color: var(--gris-fuerte); font-style: italic; font-family: var(--fuente-texto); }
+
+/* ----- 14. SDDA: hoja de propuesta ----- */
+.sitio-sdda body,
+.sitio-sdda { background: var(--blanco); }
+.sitio-sdda main section { border-top: 1px solid var(--gris-claro); }
+.sitio-sdda main section:first-of-type { border-top: 0; }
+.sitio-sdda p { max-width: 34rem; }
+/* En SDDA los enlaces del CUERPO van subrayados y en azul; los botones y los
+   enlaces de cabecera/pie conservan su propio estilo. */
+.sitio-sdda main a:not(.boton) { color: var(--azul); text-decoration: underline; }
+.sitio-sdda main a.boton { color: var(--blanco); text-decoration: none; }
+
+/* Lista de servicios de SDDA: sin tarjetas, separada por filetes */
+.servicios-lista { margin-top: 0.5rem; }
+.servicio {
+  border-top: 1px solid var(--gris-claro);
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+.servicio:first-child { border-top: 0; margin-top: 0; padding-top: 0; }
+.servicio h3 { margin-bottom: 0.15rem; }
+.servicio__precio {
+  font-family: var(--fuente-numero);
+  font-weight: 700;
+  color: var(--tinta);
+}
+.servicio__meta { font-size: 0.9rem; color: var(--gris-fuerte); }
+
+/* Formulario del diagnostico (estructura, sin accion de servidor en el modelo) */
+.formulario { margin-top: 1rem; }
+.formulario p { margin-top: 0.9rem; }
+.formulario label { display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.25rem; }
+.formulario input,
+.formulario select,
+.formulario textarea {
+  width: 100%;
+  font: inherit;
+  padding: 0.5rem;
+  border: 1px solid var(--gris-medio);
+  border-radius: var(--radio);
+  background: var(--blanco);
+}
+.formulario textarea { min-height: 5rem; }
+
+/* ----- 15. Pie ----- */
+.pie {
+  border-top: 2px solid var(--azul);
+  margin-top: 2rem;
+  padding-block: 1.25rem;
+  font-size: 0.9rem;
+  color: var(--gris-fuerte);
+}
+.pie a { color: var(--azul); }
+.pie--sdda { border-top-color: var(--gris-claro); }
+
+.nota-ficticio {
+  background: var(--gris-fondo);
+  border: 1px solid var(--gris-claro);
+  border-radius: var(--radio);
+  padding: 0.6rem 0.8rem;
+  font-size: 0.85rem;
+  color: var(--gris-fuerte);
+  margin-top: 1rem;
+}
+
+/* ----- 16. Movimiento reducido ----- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .rejilla-espacios.es-tira { scroll-snap-type: none; }
+}
