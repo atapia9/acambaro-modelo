@@ -1,13 +1,95 @@
 {
-  "_comentario": "Categorias del directorio. El 'slug' es lo que va en categoria.html?cat=slug.",
+  "_comentario": "Categorias del directorio, en palabras de un vecino que busca algo, no en lenguaje de registro de empresas. Reglas del modelo: entre 8 y 12; una categoria SIN fichas no se muestra (nada de huecos); cada tarjeta muestra cuantas fichas tiene; URL propia /categoria.html?c=slug. PROPUESTA para que Armando la corrija: los nombres y descripciones son un primer intento a partir de los giros que suele haber en una ciudad del tamano de Acambaro.",
   "categorias": [
-    { "id": "alimentos",  "nombre": "Alimentos y abarrotes",        "slug": "alimentos" },
-    { "id": "automotriz", "nombre": "Automotriz y refacciones",     "slug": "automotriz" },
-    { "id": "belleza",    "nombre": "Belleza y cuidado personal",   "slug": "belleza" },
-    { "id": "ferreteria", "nombre": "Ferreteria y construccion",    "slug": "ferreteria" },
-    { "id": "hogar",      "nombre": "Hogar y servicios",            "slug": "hogar" },
-    { "id": "mascotas",   "nombre": "Mascotas y veterinaria",       "slug": "mascotas" },
-    { "id": "panaderia",  "nombre": "Panaderia y reposteria",       "slug": "panaderia" },
-    { "id": "transporte", "nombre": "Transporte y bicicletas",      "slug": "transporte" }
+    {
+      "id": "comida-y-abarrotes",
+      "nombre": "Comida y abarrotes",
+      "slug": "comida-y-abarrotes",
+      "descripcion_corta": "Tortillerias, panaderias, abarrotes, fruterias y cremerias.",
+      "icono": null,
+      "orden": 1,
+      "activa": true
+    },
+    {
+      "id": "donde-comer",
+      "nombre": "Donde comer",
+      "slug": "donde-comer",
+      "descripcion_corta": "Fondas, taquerias, loncherias y restaurantes.",
+      "icono": null,
+      "orden": 2,
+      "activa": true
+    },
+    {
+      "id": "talleres-y-refacciones",
+      "nombre": "Talleres y refacciones",
+      "slug": "talleres-y-refacciones",
+      "descripcion_corta": "Mecanicos, refaccionarias, llanteras, hojalateria y bicicletas.",
+      "icono": null,
+      "orden": 3,
+      "activa": true
+    },
+    {
+      "id": "esteticas-y-barberias",
+      "nombre": "Esteticas y barberias",
+      "slug": "esteticas-y-barberias",
+      "descripcion_corta": "Corte de cabello, tinte, barba, unas y depilacion.",
+      "icono": null,
+      "orden": 4,
+      "activa": true
+    },
+    {
+      "id": "ferreterias-y-material",
+      "nombre": "Ferreterias y material",
+      "slug": "ferreterias-y-material",
+      "descripcion_corta": "Material electrico, plomeria, pintura, herramienta y construccion.",
+      "icono": null,
+      "orden": 5,
+      "activa": true
+    },
+    {
+      "id": "para-la-casa-y-servicios",
+      "nombre": "Para la casa y servicios",
+      "slug": "para-la-casa-y-servicios",
+      "descripcion_corta": "Agua, gas, plomeros, electricistas, limpieza y jardineria.",
+      "icono": null,
+      "orden": 6,
+      "activa": true
+    },
+    {
+      "id": "salud-y-farmacias",
+      "nombre": "Salud y farmacias",
+      "slug": "salud-y-farmacias",
+      "descripcion_corta": "Farmacias, consultorios, dentistas y laboratorios.",
+      "icono": null,
+      "orden": 7,
+      "activa": true
+    },
+    {
+      "id": "mascotas-y-veterinarias",
+      "nombre": "Mascotas y veterinarias",
+      "slug": "mascotas-y-veterinarias",
+      "descripcion_corta": "Consulta, vacunas, bano, estetica canina y alimento.",
+      "icono": null,
+      "orden": 8,
+      "activa": true
+    },
+    {
+      "id": "ropa-y-calzado",
+      "nombre": "Ropa y calzado",
+      "slug": "ropa-y-calzado",
+      "descripcion_corta": "Ropa, zapatos, uniformes y arreglos de costura.",
+      "icono": null,
+      "orden": 9,
+      "activa": true
+    },
+    {
+      "id": "fiestas-y-eventos",
+      "nombre": "Fiestas y eventos",
+      "slug": "fiestas-y-eventos",
+      "descripcion_corta": "Pasteles, mobiliario, salones, sonido y renta de mantelería.",
+      "icono": null,
+      "orden": 10,
+      "activa": true
+    }
   ]
 }

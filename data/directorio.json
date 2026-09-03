@@ -1,109 +1,117 @@
 {
-  "_comentario": "TODOS los negocios son ficticios (campo 'ficticio': true). No corresponden a ningun negocio real de Acambaro. Telefonos con puros ceros a proposito.",
+  "_comentario": "TODOS los negocios son ficticios (campo 'ficticio': true). No corresponden a ningun negocio real de Acambaro. Telefonos con puros ceros a proposito. El campo 'categoria' usa el 'id' de data/categorias.json. 'fecha_alta' (AAAA-MM-DD) alimenta la seccion 'Ultimos negocios agregados' de la portada.",
   "negocios": [
     {
       "id": "ej-001",
       "ficticio": true,
       "nombre": "Tortilleria La Molienda",
-      "categoria": "alimentos",
+      "categoria": "comida-y-abarrotes",
       "giro": "Tortilleria",
       "descripcion": "Tortilla de maiz hecha el mismo dia. Venta por kilo y mayoreo para fondas.",
       "direccion": "Calle de ejemplo 100, Centro, Acambaro",
       "telefono": "417 000 0000",
       "whatsapp": "524170000000",
       "horario": "Lunes a sabado, 7:00 a 15:00",
-      "espacio_portada": 1
+      "espacio_portada": 1,
+      "fecha_alta": "2026-05-20"
     },
     {
       "id": "ej-002",
       "ficticio": true,
       "nombre": "Refaccionaria El Ciguenal",
-      "categoria": "automotriz",
+      "categoria": "talleres-y-refacciones",
       "giro": "Refacciones automotrices",
       "descripcion": "Partes para auto y camioneta. Pedido de piezas por encargo en 48 horas.",
       "direccion": "Avenida de ejemplo 205, Acambaro",
       "telefono": "417 000 0000",
       "whatsapp": "524170000000",
       "horario": "Lunes a viernes 9:00 a 19:00, sabado 9:00 a 14:00",
-      "espacio_portada": 2
+      "espacio_portada": 2,
+      "fecha_alta": "2026-06-12"
     },
     {
       "id": "ej-003",
       "ficticio": true,
       "nombre": "Estetica Hilo y Tijera",
-      "categoria": "belleza",
+      "categoria": "esteticas-y-barberias",
       "giro": "Estetica y barberia",
       "descripcion": "Corte, tinte y peinado. Citas el mismo dia segun disponibilidad.",
       "direccion": "Calle de ejemplo 47, Barrio de ejemplo, Acambaro",
       "telefono": "417 000 0000",
       "whatsapp": "524170000000",
       "horario": "Martes a domingo, 10:00 a 20:00",
-      "espacio_portada": 4
+      "espacio_portada": 4,
+      "fecha_alta": "2026-06-30"
     },
     {
       "id": "ej-004",
       "ficticio": true,
       "nombre": "Ferreteria Dos Puentes",
-      "categoria": "ferreteria",
+      "categoria": "ferreterias-y-material",
       "giro": "Ferreteria",
       "descripcion": "Material electrico, plomeria y herramienta. Corte de llave y mezcla de pintura.",
       "direccion": "Avenida de ejemplo 88, Acambaro",
       "telefono": "417 000 0000",
       "whatsapp": "524170000000",
       "horario": "Lunes a sabado, 8:00 a 19:00",
-      "espacio_portada": 5
+      "espacio_portada": 5,
+      "fecha_alta": "2026-07-15"
     },
     {
       "id": "ej-005",
       "ficticio": true,
       "nombre": "Purificadora Agua Clara del Bajio",
-      "categoria": "hogar",
+      "categoria": "para-la-casa-y-servicios",
       "giro": "Agua purificada",
       "descripcion": "Garrafon de 20 litros a domicilio. Ruta de reparto de lunes a sabado.",
       "direccion": "Calle de ejemplo 12, Colonia de ejemplo, Acambaro",
       "telefono": "417 000 0000",
       "whatsapp": "524170000000",
       "horario": "Lunes a sabado, 8:00 a 18:00",
-      "espacio_portada": 7
+      "espacio_portada": 7,
+      "fecha_alta": "2026-08-11"
     },
     {
       "id": "ej-006",
       "ficticio": true,
       "nombre": "Veterinaria Patas del Rio",
-      "categoria": "mascotas",
+      "categoria": "mascotas-y-veterinarias",
       "giro": "Veterinaria",
       "descripcion": "Consulta, vacunas y bano. Urgencias con cita telefonica previa.",
       "direccion": "Avenida de ejemplo 300, Acambaro",
       "telefono": "417 000 0000",
       "whatsapp": "524170000000",
       "horario": "Lunes a sabado, 9:00 a 20:00",
-      "espacio_portada": 8
+      "espacio_portada": 8,
+      "fecha_alta": "2026-08-20"
     },
     {
       "id": "ej-007",
       "ficticio": true,
       "nombre": "Panaderia La Cruz de Piedra",
-      "categoria": "panaderia",
+      "categoria": "comida-y-abarrotes",
       "giro": "Panaderia",
       "descripcion": "Pan de todos los dias y pedidos para eventos. Horneado de la tarde a las 17:00.",
       "direccion": "Calle de ejemplo 5, Centro, Acambaro",
       "telefono": "417 000 0000",
       "whatsapp": "524170000000",
       "horario": "Todos los dias, 7:00 a 22:00",
-      "espacio_portada": 9
+      "espacio_portada": 9,
+      "fecha_alta": "2026-07-28"
     },
     {
       "id": "ej-008",
       "ficticio": true,
       "nombre": "Taller de Bicicletas Rueda Libre",
-      "categoria": "transporte",
+      "categoria": "talleres-y-refacciones",
       "giro": "Reparacion de bicicletas",
       "descripcion": "Servicio, armado y venta de refacciones. Diagnostico sin costo.",
       "direccion": "Avenida de ejemplo 150, Acambaro",
       "telefono": "417 000 0000",
       "whatsapp": "524170000000",
       "horario": "Lunes a sabado, 10:00 a 19:00",
-      "espacio_portada": 11
+      "espacio_portada": 11,
+      "fecha_alta": "2026-09-01"
     }
   ]
 }
