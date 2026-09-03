@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Anunciar mi negocio — acambaro.com.mx</title>
+  <meta name="description" content="Espacios de anunciante en el directorio de Acambaro: portada, categoria y ficha basica. Precios de prueba.">
+  <link rel="stylesheet" href="assets/css/estilo.css">
+</head>
+<body class="sitio-portal">
+  <a class="saltar" href="#principal">Saltar al contenido</a>
+
+  <header class="cabecera">
+    <div class="contenedor">
+      <a class="cabecera__marca" href="index.html">acambaro.com.mx</a>
+      <span class="cabecera__lema">Directorio de negocios de Acambaro</span>
+      <nav class="cabecera__nav" aria-label="Navegacion principal">
+        <a href="index.html">Directorio</a>
+        <a href="anunciar.html">Anunciar mi negocio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="principal" class="contenedor">
+
+    <!-- SECCION: intro -->
+    <section id="anunciar-intro">
+      <h1>Anunciar tu negocio en el directorio</h1>
+      <p>Hay tres niveles. Entre mas arriba, mas gente lo ve y menos lugares hay.</p>
+    </section>
+
+    <!-- SECCION: los tres niveles de inventario -->
+    <section id="anunciar-niveles" aria-labelledby="niveles-titulo">
+      <h2 id="niveles-titulo">Los tres niveles</h2>
+      <div class="niveles">
+        <div>
+          <h3>Portada</h3>
+          <p>12 lugares en total para todo Acambaro. Se ve en la primera pantalla del directorio.</p>
+        </div>
+        <div>
+          <h3>Categoria</h3>
+          <p>Hasta 12 lugares por categoria (alimentos, ferreteria, etc.). Se ve al entrar a esa categoria.</p>
+        </div>
+        <div>
+          <h3>Ficha basica</h3>
+          <p>Sin limite y sin costo. Es lo que llena el directorio para que valga la pena anunciarse arriba.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCION: tarifas (la pinta espacios.js desde data/tarifas.json) -->
+    <section id="tarifas" aria-labelledby="tarifas-titulo">
+      <h2 id="tarifas-titulo">Precios</h2>
+      <p class="nota-ficticio">
+        Los precios marcados como <strong>precio de prueba</strong> todavia no estan confirmados.
+        Son un supuesto para poder ver la pagina, no una oferta.
+      </p>
+      <div style="overflow-x:auto">
+        <table id="tabla-tarifas" class="tabla-tarifas">
+          <thead>
+            <tr>
+              <th scope="col">Nivel</th>
+              <th scope="col">Que incluye</th>
+              <th scope="col">Periodo</th>
+              <th scope="col">Precio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="4">Cargando precios…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECCION: como pedir un lugar -->
+    <section id="anunciar-contacto" aria-labelledby="contacto-titulo">
+      <h2 id="contacto-titulo">Pedir un lugar</h2>
+      <p>En el sitio final esto sera un formulario. Por ahora, el contacto es directo.</p>
+      <a class="boton" href="https://wa.me/524170000000" rel="noopener" target="_blank">Escribir por WhatsApp (numero de ejemplo)</a>
+    </section>
+
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      <p>acambaro.com.mx — directorio local. Modelo de prueba: todos los negocios y precios mostrados son ficticios o supuestos.</p>
+      <p><a href="aviso-de-privacidad.html">Aviso de privacidad</a></p>
+    </div>
+  </footer>
+
+  <script src="assets/js/espacios.js"></script>
+</body>
+</html>

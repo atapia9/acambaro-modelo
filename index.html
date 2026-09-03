@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Directorio de negocios de Acambaro — acambaro.com.mx</title>
+  <meta name="description" content="Directorio local de negocios de Acambaro, Guanajuato. Modelo de prueba con negocios de ejemplo.">
+  <link rel="stylesheet" href="assets/css/estilo.css">
+</head>
+<body class="sitio-portal">
+  <a class="saltar" href="#principal">Saltar al contenido</a>
+
+  <header class="cabecera">
+    <div class="contenedor">
+      <a class="cabecera__marca" href="index.html">acambaro.com.mx</a>
+      <span class="cabecera__lema">Directorio de negocios de Acambaro</span>
+      <nav class="cabecera__nav" aria-label="Navegacion principal">
+        <a href="index.html">Directorio</a>
+        <a href="anunciar.html">Anunciar mi negocio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="principal" class="contenedor">
+
+    <!-- SECCION: intro de portada -->
+    <section id="portada-intro" class="intro-portal">
+      <h1>Encuentra un negocio de Acambaro</h1>
+      <p>Busca por giro o por nombre. Los negocios que aparecen aqui son ejemplos de prueba: este sitio todavia es un modelo.</p>
+    </section>
+
+    <!-- SECCION: espacios de anunciante (portada). El numero de lugares vive en data/espacios.json -->
+    <section id="espacios" aria-labelledby="espacios-titulo">
+      <h2 id="espacios-titulo">Negocios anunciados en portada</h2>
+      <p>Lugares limitados. Cuando se llenan, se llenan.</p>
+      <div id="rejilla-espacios" class="rejilla-espacios">
+        <p class="dir-vacio">Cargando espacios…</p>
+      </div>
+    </section>
+
+    <!-- SECCION: directorio completo (fichas basicas, gratuitas, sin limite) -->
+    <section id="directorio" aria-labelledby="directorio-titulo">
+      <h2 id="directorio-titulo">Todos los negocios del directorio</h2>
+      <nav id="filtro-categorias" class="filtro-categorias" aria-label="Filtrar por categoria"></nav>
+      <div id="lista-directorio" class="lista-directorio">
+        <p class="dir-vacio">Cargando directorio…</p>
+      </div>
+    </section>
+
+    <!-- SECCION: llamada a anunciar -->
+    <section id="llamada-anunciar">
+      <div class="llamada-anunciar">
+        <h2>Tu negocio en la portada</h2>
+        <p>12 lugares en total. Ve cuantos quedan y que incluye cada nivel.</p>
+        <a class="boton" href="anunciar.html">Ver los espacios y precios</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      <p>acambaro.com.mx — directorio local. Modelo de prueba: todos los negocios mostrados son ficticios.</p>
+      <p>
+        <a href="aviso-de-privacidad.html">Aviso de privacidad</a>
+        &nbsp;·&nbsp;
+        <a href="sdda/index.html">Tienes un negocio y quieres ordenarlo: SDDA</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="assets/js/espacios.js"></script>
+  <script src="assets/js/directorio.js"></script>
+</body>
+</html>
