@@ -307,6 +307,21 @@ section { padding-block: 1.75rem; }
   background: var(--blanco);
 }
 .espacios-resumen:hover { background: var(--gris-fondo); }
+.rejilla-espacios .espacios-resumen { grid-column: 1 / -1; }
+
+/* Enlace "ver los demas" de la banda de destacados (solo celular) */
+.espacios-ver-mas {
+  grid-column: 1 / -1;
+  justify-self: start;
+  background: var(--blanco);
+  border: 2px solid var(--azul);
+  color: var(--azul);
+  font-weight: 700;
+  padding: 0.55rem 0.9rem;
+  border-radius: var(--radio);
+  cursor: pointer;
+}
+.espacios-ver-mas:hover { background: var(--gris-fondo); }
 .espacios-resumen__n {
   font-family: var(--fuente-numero);
   font-size: 1.1rem;

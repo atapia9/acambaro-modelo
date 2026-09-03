@@ -6,6 +6,12 @@
   "use strict";
 
   var HOY = new Date().toISOString().slice(0, 10); // 'YYYY-MM-DD' del navegador
+  var LIMITE_MOVIL = 6; // en celular la banda muestra 6 y un enlace "ver los demas"
+
+  // En pantallas anchas se muestran todos los activos; en celular se recortan a 6.
+  function esEscritorio() {
+    return window.matchMedia && window.matchMedia("(min-width: 640px)").matches;
+  }
 
   // Se pide siempre la version fresca del archivo: asi, al cambiar un data/*.json
   // y recargar, se ve el cambio sin tener que limpiar la cache del navegador.
@@ -104,16 +110,38 @@
         });
 
       cont.innerHTML = "";
-      activos.forEach(function (e) {
-        cont.appendChild(crearEspacio(e, porId[e.negocio_id]));
-      });
+      cont.classList.remove("es-tira");
+
+      var tarjetas = activos.map(function (e) { return crearEspacio(e, porId[e.negocio_id]); });
+      var libres = Math.max(total - activos.length, 0); // Regla 2
+
+      if (activos.length < 6) {
+        // Regla 3: menos de 6 activos -> tira horizontal deslizable, sin recorte.
+        cont.classList.add("es-tira");
+        tarjetas.forEach(function (t) { cont.appendChild(t); });
+        if (libres > 0) cont.appendChild(crearResumen(libres, total));
+        return;
+      }
+
+      // 6 o mas activos: rejilla. En celular se muestran 6 + "ver los demas".
+      var recorta = !esEscritorio() && tarjetas.length > LIMITE_MOVIL;
+      var visibles = recorta ? tarjetas.slice(0, LIMITE_MOVIL) : tarjetas;
+      visibles.forEach(function (t) { cont.appendChild(t); });
+
+      if (recorta) {
+        var resto = tarjetas.slice(LIMITE_MOVIL);
+        var ver = el("button", "espacios-ver-mas");
+        ver.type = "button";
+        ver.textContent = "Ver los demas (" + resto.length + ")";
+        ver.addEventListener("click", function () {
+          resto.forEach(function (t) { cont.insertBefore(t, ver); });
+          ver.parentNode.removeChild(ver);
+        });
+        cont.appendChild(ver);
+      }
 
       // Regla 2: los libres se resumen en UNA tarjeta al final.
-      var libres = Math.max(total - activos.length, 0);
       if (libres > 0) cont.appendChild(crearResumen(libres, total));
-
-      // Regla 3: menos de 6 activos -> tira horizontal deslizable.
-      cont.classList.toggle("es-tira", activos.length < 6);
     }).catch(function (err) {
       console.error(err);
       cont.innerHTML =
