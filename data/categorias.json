@@ -5,7 +5,7 @@
       "id": "comida-y-abarrotes",
       "nombre": "Comida y abarrotes",
       "slug": "comida-y-abarrotes",
-      "descripcion_corta": "Tortillerias, panaderias, abarrotes, fruterias y cremerias.",
+      "descripcion_corta": "Tortillerias, panaderias, abarrotes y fruterias.",
       "icono": null,
       "orden": 1,
       "activa": true
@@ -23,7 +23,7 @@
       "id": "talleres-y-refacciones",
       "nombre": "Talleres y refacciones",
       "slug": "talleres-y-refacciones",
-      "descripcion_corta": "Mecanicos, refaccionarias, llanteras, hojalateria y bicicletas.",
+      "descripcion_corta": "Mecanicos, refaccionarias, llanteras y bicicletas.",
       "icono": null,
       "orden": 3,
       "activa": true
@@ -32,7 +32,7 @@
       "id": "esteticas-y-barberias",
       "nombre": "Esteticas y barberias",
       "slug": "esteticas-y-barberias",
-      "descripcion_corta": "Corte de cabello, tinte, barba, unas y depilacion.",
+      "descripcion_corta": "Corte de cabello, tinte, barba y unas.",
       "icono": null,
       "orden": 4,
       "activa": true
@@ -41,7 +41,7 @@
       "id": "ferreterias-y-material",
       "nombre": "Ferreterias y material",
       "slug": "ferreterias-y-material",
-      "descripcion_corta": "Material electrico, plomeria, pintura, herramienta y construccion.",
+      "descripcion_corta": "Material electrico, plomeria, pintura y herramienta.",
       "icono": null,
       "orden": 5,
       "activa": true
@@ -50,7 +50,7 @@
       "id": "para-la-casa-y-servicios",
       "nombre": "Para la casa y servicios",
       "slug": "para-la-casa-y-servicios",
-      "descripcion_corta": "Agua, gas, plomeros, electricistas, limpieza y jardineria.",
+      "descripcion_corta": "Agua, gas, plomeros, electricistas y limpieza.",
       "icono": null,
       "orden": 6,
       "activa": true
@@ -68,7 +68,7 @@
       "id": "mascotas-y-veterinarias",
       "nombre": "Mascotas y veterinarias",
       "slug": "mascotas-y-veterinarias",
-      "descripcion_corta": "Consulta, vacunas, bano, estetica canina y alimento.",
+      "descripcion_corta": "Consulta, vacunas, bano y estetica canina.",
       "icono": null,
       "orden": 8,
       "activa": true
@@ -86,7 +86,7 @@
       "id": "fiestas-y-eventos",
       "nombre": "Fiestas y eventos",
       "slug": "fiestas-y-eventos",
-      "descripcion_corta": "Pasteles, mobiliario, salones, sonido y renta de mantelería.",
+      "descripcion_corta": "Pasteles, mobiliario, salones y sonido.",
       "icono": null,
       "orden": 10,
       "activa": true
