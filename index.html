@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Directorio de negocios de Acambaro — acambaro.com.mx</title>
-  <meta name="description" content="Directorio local de negocios de Acambaro, Guanajuato. Modelo de prueba con negocios de ejemplo.">
+  <meta name="description" content="Directorio local de negocios y servicios de Acambaro, Guanajuato, por categoria. Modelo de prueba con negocios de ejemplo.">
   <link rel="stylesheet" href="assets/css/estilo.css">
 </head>
 <body class="sitio-portal">
@@ -23,37 +23,56 @@
 
   <main id="principal" class="contenedor">
 
-    <!-- SECCION: intro de portada -->
+    <!-- a) H1: que encuentro aqui   +   b) linea de apoyo: para quien es -->
     <section id="portada-intro" class="intro-portal">
-      <h1>Encuentra un negocio de Acambaro</h1>
-      <p>Busca por giro o por nombre. Los negocios que aparecen aqui son ejemplos de prueba: este sitio todavia es un modelo.</p>
+      <h1>El directorio de negocios de Acambaro</h1>
+      <p class="apoyo">Para vecinos de Acambaro: encuentra a que taller, tienda o servicio ir, con telefono y WhatsApp directo.</p>
     </section>
 
-    <!-- SECCION: espacios de anunciante (portada). El numero de lugares vive en data/espacios.json -->
-    <section id="espacios" aria-labelledby="espacios-titulo">
-      <h2 id="espacios-titulo">Negocios anunciados en portada</h2>
-      <p>Lugares limitados. Cuando se llenan, se llenan.</p>
+    <!-- c) buscador: por nombre y por categoria -->
+    <section id="buscador-sec" aria-labelledby="buscador-titulo">
+      <h2 id="buscador-titulo" class="visualmente-oculto">Buscar en el directorio</h2>
+      <form id="buscador" class="buscador" role="search" autocomplete="off">
+        <label for="q" class="visualmente-oculto">Buscar negocio por nombre</label>
+        <input type="search" id="q" name="q" placeholder="Buscar por nombre (ej. tortilleria)">
+        <label for="q-cat" class="visualmente-oculto">Ir a una categoria</label>
+        <select id="q-cat" name="c">
+          <option value="">Ver por categoria…</option>
+        </select>
+      </form>
+      <div id="buscador-resultados" class="buscador-resultados" hidden></div>
+    </section>
+
+    <!-- d) LA REJILLA DE CATEGORIAS: contenido principal de la portada -->
+    <section id="categorias-sec" aria-labelledby="categorias-titulo">
+      <h2 id="categorias-titulo">Que estas buscando</h2>
+      <div id="rejilla-categorias" class="rejilla-categorias">
+        <p class="dir-vacio">Cargando categorias…</p>
+      </div>
+    </section>
+
+    <!-- e) banda de destacados: los espacios de anunciante, declarados como tales -->
+    <section id="destacados-sec" aria-labelledby="destacados-titulo">
+      <h2 id="destacados-titulo">Negocios destacados</h2>
+      <p class="destacados-nota">Espacio de anunciante: estos negocios pagan por aparecer aqui. El resto del directorio es gratuito.</p>
       <div id="rejilla-espacios" class="rejilla-espacios">
-        <p class="dir-vacio">Cargando espacios…</p>
+        <p class="dir-vacio">Cargando destacados…</p>
       </div>
     </section>
 
-    <!-- SECCION: directorio completo (fichas basicas, gratuitas, sin limite) -->
-    <section id="directorio" aria-labelledby="directorio-titulo">
-      <h2 id="directorio-titulo">Todos los negocios del directorio</h2>
-      <nav id="filtro-categorias" class="filtro-categorias" aria-label="Filtrar por categoria"></nav>
-      <div id="lista-directorio" class="lista-directorio">
-        <p class="dir-vacio">Cargando directorio…</p>
+    <!-- f) ultimos negocios agregados al directorio -->
+    <section id="ultimos-sec" aria-labelledby="ultimos-titulo">
+      <h2 id="ultimos-titulo">Ultimos negocios agregados</h2>
+      <div id="ultimos-negocios" class="lista-directorio">
+        <p class="dir-vacio">Cargando…</p>
       </div>
     </section>
 
-    <!-- SECCION: llamada a anunciar -->
-    <section id="llamada-anunciar">
-      <div class="llamada-anunciar">
-        <h2>Tu negocio en la portada</h2>
-        <p>12 lugares en total. Ve cuantos quedan y que incluye cada nivel.</p>
-        <a class="boton" href="anunciar.html">Ver los espacios y precios</a>
-      </div>
+    <!-- g) franja discreta con enlace a anunciar -->
+    <section id="franja-anunciar">
+      <p class="franja-anunciar">
+        Tienes un negocio en Acambaro? <a href="anunciar.html">Aparece en el directorio</a>.
+      </p>
     </section>
 
   </main>

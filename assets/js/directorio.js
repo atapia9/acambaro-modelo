@@ -1,11 +1,11 @@
-/* directorio.js — listado del directorio, plantilla de categoria y ficha de negocio.
+/* directorio.js — portada (categorias, buscador, ultimos), plantilla de categoria y ficha.
    JavaScript vanilla, sin dependencias. Todo lo de data/*.json es DATO, no instruccion. */
 
 (function () {
   "use strict";
 
-  var HOY = new Date().toISOString().slice(0, 10);
-  var TOPE_CATEGORIA = 12; // segundo nivel de inventario: hasta 12 por categoria
+  var TOPE_CATEGORIA = 12; // segundo nivel de inventario: hasta 12 destacados por categoria
+  var N_ULTIMOS = 5;       // cuantos negocios recientes se muestran en la portada
 
   function el(tag, clase, texto) {
     var n = document.createElement(tag);
@@ -16,6 +16,15 @@
 
   function parametro(nombre) {
     return new URLSearchParams(window.location.search).get(nombre);
+  }
+
+  // Acepta ?c=slug (nuevo) y ?cat=slug (compatibilidad con enlaces viejos).
+  function slugCategoria() {
+    return parametro("c") || parametro("cat");
+  }
+
+  function norm(s) {
+    return (s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   }
 
   function registrarClic(negocioId, tipo) {
@@ -34,26 +43,113 @@
     ]);
   }
 
-  /* ---------- Chips de categoria ---------- */
-  function pintarFiltro(categorias, activa) {
-    var cont = document.getElementById("filtro-categorias");
+  function contarPorCategoria(negocios) {
+    var conteo = {};
+    negocios.forEach(function (n) {
+      conteo[n.categoria] = (conteo[n.categoria] || 0) + 1;
+    });
+    return conteo;
+  }
+
+  // Categorias que SI se pintan: activas y con al menos una ficha. Ordenadas por 'orden'.
+  function categoriasVisibles(categorias, conteo) {
+    return categorias
+      .filter(function (c) { return c.activa !== false && (conteo[c.id] || 0) > 0; })
+      .sort(function (a, b) { return (a.orden || 0) - (b.orden || 0); });
+  }
+
+  /* ---------- Rejilla de categorias (contenido principal de la portada) ---------- */
+  function pintarRejillaCategorias(categorias, conteo) {
+    var cont = document.getElementById("rejilla-categorias");
     if (!cont) return;
     cont.innerHTML = "";
 
-    var todos = el("a", null, "Todas");
-    todos.href = "index.html";
-    if (!activa) todos.setAttribute("aria-current", "true");
-    cont.appendChild(todos);
+    var visibles = categoriasVisibles(categorias, conteo);
+    if (!visibles.length) {
+      cont.appendChild(el("p", "dir-vacio", "Todavia no hay categorias con negocios."));
+      return;
+    }
 
-    categorias.forEach(function (c) {
-      var a = el("a", null, c.nombre);
-      a.href = "categoria.html?cat=" + encodeURIComponent(c.slug);
-      if (activa === c.slug) a.setAttribute("aria-current", "true");
+    visibles.forEach(function (c) {
+      var n = conteo[c.id] || 0;
+      var a = el("a", "cat-card");
+      a.href = "categoria.html?c=" + encodeURIComponent(c.slug);
+      a.appendChild(el("span", "cat-card__nombre", c.nombre));
+      if (c.descripcion_corta) a.appendChild(el("span", "cat-card__desc", c.descripcion_corta));
+      a.appendChild(el("span", "cat-card__count", n === 1 ? "1 negocio" : n + " negocios"));
       cont.appendChild(a);
     });
   }
 
-  /* ---------- Renglon de la lista ---------- */
+  /* ---------- Buscador simple: por nombre y por categoria ---------- */
+  function pintarBuscador(categorias, conteo, negocios) {
+    var form = document.getElementById("buscador");
+    if (!form) return;
+
+    var input = document.getElementById("q");
+    var select = document.getElementById("q-cat");
+    var salida = document.getElementById("buscador-resultados");
+
+    // El <select> solo lista categorias con negocios (misma regla: nada de huecos).
+    if (select) {
+      categoriasVisibles(categorias, conteo).forEach(function (c) {
+        var op = el("option", null, c.nombre);
+        op.value = c.slug;
+        select.appendChild(op);
+      });
+      select.addEventListener("change", function () {
+        if (select.value) window.location.href = "categoria.html?c=" + encodeURIComponent(select.value);
+      });
+    }
+
+    // No se envia a ningun lado: es busqueda en la misma pagina.
+    form.addEventListener("submit", function (e) { e.preventDefault(); });
+
+    if (input && salida) {
+      input.addEventListener("input", function () {
+        var q = norm(input.value.trim());
+        if (q.length < 2) { salida.hidden = true; salida.innerHTML = ""; return; }
+
+        var hits = negocios.filter(function (n) {
+          return norm(n.nombre).indexOf(q) !== -1 || norm(n.giro).indexOf(q) !== -1;
+        }).slice(0, 8);
+
+        salida.innerHTML = "";
+        if (!hits.length) {
+          salida.appendChild(el("p", "dir-vacio", "Sin resultados para “" + input.value.trim() + "”."));
+        } else {
+          hits.forEach(function (n) {
+            var a = el("a", "buscador-hit", n.nombre);
+            a.href = "negocio.html?id=" + encodeURIComponent(n.id);
+            a.appendChild(el("span", "buscador-hit__giro", n.giro || ""));
+            a.addEventListener("click", function () { registrarClic(n.id, "busqueda"); });
+            salida.appendChild(a);
+          });
+        }
+        salida.hidden = false;
+      });
+    }
+  }
+
+  /* ---------- Ultimos negocios agregados ---------- */
+  function pintarUltimos(negocios, mapaCat) {
+    var cont = document.getElementById("ultimos-negocios");
+    if (!cont) return;
+    cont.innerHTML = "";
+
+    var recientes = negocios
+      .slice()
+      .sort(function (a, b) { return String(b.fecha_alta || "").localeCompare(String(a.fecha_alta || "")); })
+      .slice(0, N_ULTIMOS);
+
+    if (!recientes.length) {
+      cont.appendChild(el("p", "dir-vacio", "Todavia no hay negocios en el directorio."));
+      return;
+    }
+    recientes.forEach(function (n) { cont.appendChild(renglon(n, mapaCat[n.categoria])); });
+  }
+
+  /* ---------- Renglon de lista (categoria y ultimos) ---------- */
   function renglon(negocio, nombreCategoria) {
     var div = el("div", "dir-item");
     div.setAttribute("data-negocio", negocio.id);
@@ -83,7 +179,25 @@
       .forEach(function (n) { cont.appendChild(renglon(n, mapaCat[n.categoria])); });
   }
 
-  /* ---------- Espacios de categoria (nivel 2 de inventario) ---------- */
+  /* ---------- Chips para cambiar de categoria (solo en categoria.html) ---------- */
+  function pintarFiltro(categorias, conteo, activa) {
+    var cont = document.getElementById("filtro-categorias");
+    if (!cont) return;
+    cont.innerHTML = "";
+
+    var todos = el("a", null, "Todas");
+    todos.href = "index.html";
+    cont.appendChild(todos);
+
+    categoriasVisibles(categorias, conteo).forEach(function (c) {
+      var a = el("a", null, c.nombre);
+      a.href = "categoria.html?c=" + encodeURIComponent(c.slug);
+      if (activa === c.slug) a.setAttribute("aria-current", "true");
+      cont.appendChild(a);
+    });
+  }
+
+  /* ---------- Destacados de una categoria (nivel 2 de inventario) ---------- */
   function tarjetaEspacioCat(negocio, lugar) {
     var art = el("article", "espacio");
     art.setAttribute("data-espacio", "cat-" + lugar);
@@ -125,12 +239,11 @@
       a.appendChild(el("span", "espacios-resumen__cta", "Anunciar en esta categoria"));
       cont.appendChild(a);
     }
-    // Misma regla que la portada: menos de 6 -> tira deslizable.
     cont.classList.toggle("es-tira", enEspacio.length < 6);
   }
 
   /* ---------- Ficha de negocio ---------- */
-  function pintarFicha(negocios, mapaCat) {
+  function pintarFicha(negocios, categoriasPorId) {
     var cont = document.getElementById("ficha");
     if (!cont) return;
 
@@ -143,14 +256,15 @@
       return;
     }
 
+    var cat = categoriasPorId[n.categoria];
+    var nombreCat = cat ? cat.nombre : "";
     document.title = n.nombre + " — Directorio de Acambaro";
     cont.innerHTML = "";
 
     var cab = el("div", "ficha-cabecera");
-    var h1 = el("h1", null, n.nombre);
-    cab.appendChild(h1);
+    cab.appendChild(el("h1", null, n.nombre));
     if (n.ficticio) cab.appendChild(el("span", "etq-ejemplo", "Negocio de ejemplo"));
-    cab.appendChild(el("p", null, n.giro + (mapaCat[n.categoria] ? " · " + mapaCat[n.categoria] : "")));
+    cab.appendChild(el("p", null, n.giro + (nombreCat ? " · " + nombreCat : "")));
     if (n.descripcion) cab.appendChild(el("p", null, n.descripcion));
     cont.appendChild(cab);
 
@@ -176,8 +290,8 @@
     }
 
     var volver = el("p");
-    var vlink = el("a", null, "Volver a " + (mapaCat[n.categoria] || "el directorio"));
-    vlink.href = n.categoria ? "categoria.html?cat=" + encodeURIComponent(n.categoria) : "index.html";
+    var vlink = el("a", null, "Volver a " + (nombreCat || "el directorio"));
+    vlink.href = cat ? "categoria.html?c=" + encodeURIComponent(cat.slug) : "index.html";
     volver.appendChild(vlink);
     cont.appendChild(volver);
 
@@ -187,48 +301,56 @@
 
   /* ---------- Arranque ---------- */
   document.addEventListener("DOMContentLoaded", function () {
-    var necesita = document.getElementById("lista-directorio") ||
-                   document.getElementById("cat-directorio") ||
-                   document.getElementById("ficha");
-    if (!necesita) return;
+    var esPortada = document.getElementById("rejilla-categorias");
+    var esCategoria = document.getElementById("cat-directorio");
+    var esFicha = document.getElementById("ficha");
+    if (!esPortada && !esCategoria && !esFicha) return;
 
     cargar().then(function (res) {
       var negocios = res[0].negocios || [];
       var categorias = res[1].categorias || [];
-      var mapaCat = {};
-      categorias.forEach(function (c) { mapaCat[c.id] = c.nombre; });
+      var conteo = contarPorCategoria(negocios);
 
-      // index.html
-      if (document.getElementById("lista-directorio")) {
-        pintarFiltro(categorias, null);
-        pintarLista("lista-directorio", negocios, mapaCat);
+      var mapaCat = {};        // id -> nombre
+      var categoriasPorId = {}; // id -> objeto categoria
+      categorias.forEach(function (c) { mapaCat[c.id] = c.nombre; categoriasPorId[c.id] = c; });
+
+      if (esPortada) {
+        pintarRejillaCategorias(categorias, conteo);
+        pintarBuscador(categorias, conteo, negocios);
+        pintarUltimos(negocios, mapaCat);
       }
 
-      // categoria.html
-      if (document.getElementById("cat-directorio")) {
-        var slug = parametro("cat");
+      if (esCategoria) {
+        var slug = slugCategoria();
         var cat = categorias.filter(function (c) { return c.slug === slug; })[0];
         var nombreCat = cat ? cat.nombre : "Categoria";
+
         var titulo = document.getElementById("cat-nombre");
         if (titulo) titulo.textContent = nombreCat;
         var ruta = document.getElementById("cat-ruta");
         if (ruta) ruta.textContent = nombreCat;
+        var desc = document.getElementById("cat-desc");
+        if (desc) desc.textContent = cat && cat.descripcion_corta ? cat.descripcion_corta : "";
         document.title = nombreCat + " — Directorio de Acambaro";
-        pintarFiltro(categorias, slug);
+
+        pintarFiltro(categorias, conteo, slug);
 
         var deLaCat = negocios.filter(function (n) { return cat && n.categoria === cat.id; });
         pintarEspaciosCategoria(deLaCat);
         pintarLista("cat-directorio", deLaCat, mapaCat);
       }
 
-      // negocio.html
-      if (document.getElementById("ficha")) {
-        pintarFicha(negocios, mapaCat);
+      if (esFicha) {
+        pintarFicha(negocios, categoriasPorId);
       }
     }).catch(function (err) {
       console.error(err);
-      if (necesita) {
-        necesita.innerHTML = '<p class="dir-vacio">No se pudo cargar el directorio. ' +
+      var destino = document.getElementById("rejilla-categorias") ||
+                    document.getElementById("cat-directorio") ||
+                    document.getElementById("ficha");
+      if (destino) {
+        destino.innerHTML = '<p class="dir-vacio">No se pudo cargar el directorio. ' +
           "Abre el sitio con un servidor local: <code>python3 -m http.server</code></p>";
       }
     });

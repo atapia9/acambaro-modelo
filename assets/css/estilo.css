@@ -126,10 +126,113 @@ section { padding-block: 1.75rem; }
 .cabecera--sdda .cabecera__lema { color: #c7d6e0; }
 
 /* ----- 6. Portal: intro ----- */
-.intro-portal p {
-  font-size: 1.05rem;
+.intro-portal { padding-block: 1rem 0.75rem; }
+.intro-portal h1 { font-size: 1.5rem; }
+.intro-portal .apoyo {
+  font-size: 1rem;
+  color: var(--gris-fuerte);
   max-width: 46rem;
+  margin-top: 0.4rem;
 }
+
+/* Texto solo para lectores de pantalla */
+.visualmente-oculto {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ----- 6b. Portal: buscador ----- */
+#buscador-sec { padding-block: 0.5rem; }
+.buscador {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.buscador input,
+.buscador select {
+  font: inherit;
+  padding: 0.55rem 0.6rem;
+  border: 1px solid var(--gris-medio);
+  border-radius: var(--radio);
+  background: var(--blanco);
+  color: var(--tinta);
+  flex: 1 1 100%;
+}
+@media (min-width: 600px) {
+  .buscador input { flex: 2 1 12rem; }
+  .buscador select { flex: 1 1 10rem; }
+}
+.buscador-resultados {
+  border: 1px solid var(--gris-claro);
+  border-radius: var(--radio);
+  margin-top: 0.5rem;
+}
+.buscador-hit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.6rem;
+  padding: 0.6rem 0.7rem;
+  border-bottom: 1px solid var(--gris-claro);
+  text-decoration: none;
+  color: var(--azul);
+  font-weight: 700;
+}
+.buscador-hit:last-child { border-bottom: 0; }
+.buscador-hit:hover { background: var(--gris-fondo); }
+.buscador-hit__giro { font-weight: 400; font-size: 0.85rem; color: var(--gris-fuerte); }
+
+/* ----- 6c. Portal: rejilla de categorias (contenido principal) ----- */
+#categorias-sec { padding-block: 1rem; }
+.rejilla-categorias {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+@media (min-width: 600px) { .rejilla-categorias { grid-template-columns: repeat(3, 1fr); gap: 0.85rem; } }
+@media (min-width: 960px) { .rejilla-categorias { grid-template-columns: repeat(4, 1fr); } }
+
+.cat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  border: 1px solid var(--gris-claro);
+  border-left: 3px solid var(--azul);
+  border-radius: var(--radio);
+  background: var(--blanco);
+  text-decoration: none;
+  color: var(--tinta);
+}
+.cat-card:hover { background: var(--gris-fondo); }
+.cat-card__nombre { font-weight: 700; color: var(--azul); font-size: 1rem; line-height: 1.25; }
+.cat-card__desc { font-size: 0.8rem; color: var(--gris-fuerte); }
+.cat-card__count {
+  font-family: var(--fuente-numero);
+  font-size: 0.75rem;
+  color: var(--gris-fuerte);
+  margin-top: auto;
+}
+
+/* ----- 6d. Portal: nota de la banda de destacados y franja de anunciar ----- */
+.destacados-nota {
+  font-size: 0.85rem;
+  color: var(--gris-fuerte);
+  margin-top: 0.25rem;
+}
+.franja-anunciar {
+  font-size: 0.9rem;
+  color: var(--gris-fuerte);
+  border-top: 1px solid var(--gris-claro);
+  padding-top: 1rem;
+}
+.franja-anunciar a { color: var(--azul); font-weight: 700; }
 
 /* ----- 7. Portal: rejilla de espacios de anunciante ----- */
 /* El numero de espacios NO vive aqui: lo pone data/espacios.json.
