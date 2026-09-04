@@ -89,3 +89,24 @@ registrado como decision suya, no como aplicacion automatica del estudio.
   con la llamada 3 de la §9 del estudio (Guanajuato Sur Noticias / A La Una Noticias).
 - Hosting, correo, sitio WordPress y los servicios nuevos 8-9 (pauta e intermediacion):
   no estan en las paginas del prototipo; no se tocaron.
+
+### Aclaracion agregada a la oferta
+
+En `sdda/servicios.html` se explico en palabras llanas como funciona el pago acreditable
+del Mapa: se paga al inicio; si contrata un Sprint o un Acompanamiento dentro de 30 dias,
+los $6,900 se descuentan completos de ese servicio; pasados los 30 dias, el descuento ya
+no aplica. La linea de `sdda/index.html` se ajusto para decir lo mismo en corto.
+
+### PENDIENTE — cuestionar este ajuste en P6 (revisar a mas tardar 31 dic 2026)
+
+Este ajuste de precios es **provisional**. En P6 hay que decidir a conciencia si se
+mantiene o se re-ajusta, con la regla del Doc 04 §5:
+
+- **Mantener** los precios v2 si, tras enviar 3 propuestas, hubo hasta 2 rechazos por
+  precio o el prospecto acepto negociando.
+- **Bajar / re-ajustar** si hubo **3 rechazos seguidos por precio** despues de 3 propuestas.
+- **Subir** si hubo **3 aceptaciones sin que el prospecto negociara** el precio.
+- Si a 31 dic 2026 no se han enviado 3 propuestas, la decision se pospone hasta tenerlas:
+  no se re-ajusta por falta de datos.
+
+Registrar aqui el resultado cuando se resuelva.
