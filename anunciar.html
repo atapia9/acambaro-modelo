@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Anunciar mi negocio — acambaro.com.mx</title>
   <meta name="description" content="Espacios de anunciante en el directorio de Acambaro: portada, categoria y ficha basica. Precios de prueba.">
   <link rel="stylesheet" href="assets/css/estilo.css?v=2">
@@ -55,7 +57,7 @@
         Los precios marcados como <strong>precio de prueba</strong> todavia no estan confirmados.
         Son un supuesto para poder ver la pagina, no una oferta.
       </p>
-      <div style="overflow-x:auto">
+      <div class="tabla-tarifas-scroll">
         <table id="tabla-tarifas" class="tabla-tarifas">
           <thead>
             <tr>

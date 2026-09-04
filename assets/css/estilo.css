@@ -462,6 +462,7 @@ section { padding-block: 1.75rem; }
   .niveles > div:first-child { border-left: 0; padding-left: 0; }
 }
 
+.tabla-tarifas-scroll { overflow-x: auto; }
 .tabla-tarifas { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.95rem; }
 .tabla-tarifas th, .tabla-tarifas td {
   text-align: left;
