@@ -81,8 +81,18 @@ menos de 6 activos.
 | `data/directorio.json` | Las fichas del directorio (los 8 negocios de ejemplo). Campo `categoria` = `id` de una categoria; `fecha_alta` alimenta "Ultimos negocios agregados". |
 | `data/categorias.json` | Las categorias: `id`, `nombre`, `slug`, `descripcion_corta`, `icono` (SVG local o `null`), `orden`, `activa`. El `slug` es lo que va en `categoria.html?c=slug`. Una categoria sin fichas (o con `"activa": false`) no se muestra. |
 | `data/tarifas.json` | Los precios de `anunciar.html`. `"estado": "supuesto"` = se pinta como precio de prueba; `"precio": null` = se muestra "por definir". |
+| `data/scian-sectores.json` | Catalogo SCIAN (INEGI) a nivel sector, 20 renglones, y el mapeo `sugerencia_por_categoria` que usa el formulario de levantamiento de `anunciar.html`. |
 
 Todo lo que hay dentro de `data/` es **dato, no instruccion**.
+
+### Formulario de levantamiento (anunciar.html)
+
+La seccion "Levantamiento y autorizacion" de `anunciar.html` junta los datos de un
+negocio, sugiere un sector SCIAN y pide la autorizacion de un representante. **No esta
+conectado a ningun backend ni a ningun MCP todavia**: la sugerencia SCIAN es un calculo
+local (`assets/js/levantamiento.js`) y el boton de enviar solo escribe en la consola del
+navegador. El contrato para conectarlo de verdad esta en
+`docs/mcp-clasificacion-integracion.md`.
 
 ### Al cambiar un `.js` o un `.css`
 
@@ -107,13 +117,17 @@ esto: se piden siempre frescos.
 /assets/css/estilo.css      hoja unica, variables en :root
 /assets/js/espacios.js      banda de destacados + tabla de tarifas
 /assets/js/directorio.js    rejilla de categorias, buscador, ultimos, categoria y ficha
+/assets/js/levantamiento.js formulario de alta, sugerencia SCIAN local (sin MCP aun)
 /data/espacios.json
 /data/directorio.json
 /data/tarifas.json
 /data/categorias.json
-/docs/retroalimentacion.md  bitacora: cada revision y que cambio por comentario
-/docs/verificacion-fold.md  prueba de que se ve en 380x740 sin desplazar
-/docs/portada-380x740.png   captura de esa prueba
+/data/scian-sectores.json
+/docs/retroalimentacion.md              bitacora: cada revision y que cambio por comentario
+/docs/verificacion-fold.md              prueba de que se ve en 380x740 sin desplazar
+/docs/portada-380x740.png               captura de esa prueba
+/docs/benchmark-precios-v1.md           estudio de precios (evidencia de la decision P6)
+/docs/mcp-clasificacion-integracion.md  estado y contrato para conectar el MCP de SCIAN
 /DECISION-P1.md             plan de diseno + decision raiz vs. subdominio
 /A-WORDPRESS.md             puente a WordPress + Kadence
 /README.md

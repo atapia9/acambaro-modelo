@@ -85,6 +85,7 @@ Se implementa como **Kadence Element → Template → Taxonomy Archive** para `c
 | `#anunciar-niveles` | **Row Layout** de 3 columnas (portada / categoría / ficha básica) | Sin tarjetas con sombra; columnas separadas por filete. |
 | `#tabla-tarifas` | **Bloque dinámico** `sdda/tarifas` que recorre el CPT `tarifa` (o repetidor ACF) | Si `estado=supuesto` pinta la marca "precio de prueba"; si `precio` vacío escribe "por definir". Misma regla que el JS del modelo. |
 | `#anunciar-contacto` | **Formulario de Kadence** (Kadence Blocks Form) | En el modelo es un enlace a WhatsApp / correo; en WP pasa a formulario nativo. |
+| `#levantamiento` | **Kadence Blocks Form** de varios pasos + llamada a la API de clasificación | Formulario de alta: datos del negocio, sugerencia de sector SCIAN y autorización del representante. Ver §11 para el mapeo de campos y el MCP. |
 | `<footer>` | Footer global | — |
 
 ---
@@ -142,5 +143,26 @@ quiere reusar el mismo texto en la portada de SDDA.
 | `assets/css/estilo.css` | Se parte: variables `:root` y estilos base → **Kadence → Ajustes globales** (colores, tipografía) + CSS adicional del tema hijo. Estilos de la rejilla de espacios → CSS del plugin `sdda/espacios`. |
 | `assets/js/espacios.js` | Lógica → render PHP del bloque dinámico `sdda/espacios-*`. El registro de clic → endpoint AJAX/REST que escribe en `wp_sdda_clics`. El recorte "6 + ver los demás" en móvil → media query + `<details>` o un poco de JS del tema. |
 | `assets/js/directorio.js` | Rejilla de categorías y "últimos" → bloques dinámicos / Query Loop de Kadence. Buscador → búsqueda nativa + selector de términos. No se migra el JS. |
-| `?v=2` en los `<link>`/`<script>` | En WordPress lo maneja `wp_enqueue_*` con su parámetro de versión; el `?v=` manual del modelo desaparece. |
+| `assets/js/levantamiento.js` | Ver §11: el sustituto local de la clasificación SCIAN se sustituye por una llamada real, y el envío del formulario pasa a Kadence Forms + REST. |
+| `?v=2`/`?v=3` en los `<link>`/`<script>` | En WordPress lo maneja `wp_enqueue_*` con su parámetro de versión; el `?v=` manual del modelo desaparece. |
 | `data/*.json` | Datos semilla para poblar el CPT, la taxonomía y las opciones al montar el sitio (script de importación de una sola vez). |
+
+---
+
+## 11. Levantamiento del negocio, clasificación SCIAN y el MCP
+
+Detalle completo en `docs/mcp-clasificacion-integracion.md`. Resumen para WordPress:
+
+| Elemento del modelo | En WordPress se vuelve | Notas |
+|---|---|---|
+| `data/scian-sectores.json` | **Taxonomía `scian`** (no jerárquica basta a nivel sector) o **campo de selección** en el CPT `anunciante` | Si más adelante se usa el catálogo completo (nivel clase), sí conviene taxonomía jerárquica sector → subsector → rama → clase. |
+| Campo "giro" del formulario de levantamiento | Meta del CPT `anunciante`: `giro_descripcion` | Es el texto que se manda al clasificador (real o humano). |
+| `sugerirClasificacionScian()` (stub) | **Llamada server-side** desde PHP (WordPress) al backend que expone el MCP (opción A de la §4 del doc de integración) | El navegador del visitante nunca debe hablar directo con el backend de clasificación: la petición sale del servidor de WordPress, no del cliente. Evita exponer credenciales y facilita el CORS (ya no aplica, es servidor a servidor). |
+| Autorización del representante (`#levantamiento`) | Meta del CPT `anunciante`: `representante_nombre`, `representante_cargo`, `autorizacion_aceptada` (bool), `autorizacion_fecha` | Se guarda con el estado del post en `pending` hasta que alguien de SDDA lo revise y publique. |
+| Envío del formulario | **Kadence Blocks Form** → webhook o Action Scheduler que crea el post `anunciante` en `pending` y dispara la clasificación | Reemplaza el `console.log` del modelo. |
+
+**Por qué server-side y no en el navegador:** un MCP se piensa para que lo hable un
+proceso de servidor (o un agente), no JavaScript de cliente. Migrar a WordPress no
+resuelve por sí solo el problema de exponer el MCP al público — sigue haciendo falta el
+backend intermedio de la opción A, ahora llamado desde PHP en vez de desde `fetch()`
+del navegador, lo cual además es más seguro.
