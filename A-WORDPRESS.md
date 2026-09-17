@@ -131,7 +131,7 @@ quiere reusar el mismo texto en la portada de SDDA.
 |---|---|---|
 | `#diag-intro` | **Título** + **Párrafo** | Qué es el diagnóstico exprés: gratuito, 45 minutos. |
 | `#diag-que-incluye` | **Lista** | Qué se revisa en la sesión. |
-| `#diag-formulario` | **Kadence Blocks Form** | En el modelo es un formulario HTML sin acción de servidor (solo estructura). En WP se conecta a correo / CRM. Campos: nombre, negocio, teléfono, número de empleados, qué duele hoy. |
+| `#diag-formulario` | **Kadence Blocks Form** | En el modelo el botón junta el lead en un objeto con forma fija (`assets/js/diagnostico.js`) y solo lo registra en consola. En WP se conecta a correo / CRM. Campos: nombre, negocio, teléfono, número de empleados, qué duele hoy. Contrato de datos y caminos de conexión: `docs/crm-diagnostico-integracion.md`. |
 | `#diag-datos` | **Párrafo** con enlace al Aviso de privacidad | Qué se hace con los datos del formulario. |
 
 ---

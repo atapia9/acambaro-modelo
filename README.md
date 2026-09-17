@@ -94,6 +94,15 @@ local (`assets/js/levantamiento.js`) y el boton de enviar solo escribe en la con
 navegador. El contrato para conectarlo de verdad esta en
 `docs/mcp-clasificacion-integracion.md`.
 
+### Formulario de diagnostico (sdda/diagnostico.html)
+
+El formulario de "Pedir la sesion" junta nombre, negocio, telefono, tamano del equipo
+y tema. **No esta conectado a ningun CRM todavia**: al dar clic en enviar,
+`assets/js/diagnostico.js` arma el lead con una forma fija y solo lo escribe en la
+consola del navegador (mismo patron que el levantamiento de arriba). El contrato de
+datos y los caminos para conectarlo de verdad estan en
+`docs/crm-diagnostico-integracion.md`.
+
 ### Al cambiar un `.js` o un `.css`
 
 Los `<link>` y `<script>` de las paginas llevan `?v=2`. Si editas la hoja de estilo
@@ -137,6 +146,7 @@ sin build".
 /assets/js/espacios.js      banda de destacados + tabla de tarifas
 /assets/js/directorio.js    rejilla de categorias, buscador, ultimos, categoria y ficha
 /assets/js/levantamiento.js formulario de alta, sugerencia SCIAN local (sin MCP aun)
+/assets/js/diagnostico.js   formulario de diagnostico, lead local (sin CRM aun)
 /data/espacios.json
 /data/directorio.json
 /data/tarifas.json
@@ -147,6 +157,7 @@ sin build".
 /docs/portada-380x740.png               captura de esa prueba
 /docs/benchmark-precios-v1.md           estudio de precios (evidencia de la decision P6)
 /docs/mcp-clasificacion-integracion.md  estado y contrato para conectar el MCP de SCIAN
+/docs/crm-diagnostico-integracion.md    estado y contrato para conectar el diagnostico a un CRM
 /DECISION-P1.md             plan de diseno + decision raiz vs. subdominio
 /A-WORDPRESS.md             puente a WordPress + Kadence
 /README.md
