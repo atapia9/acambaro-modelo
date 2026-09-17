@@ -529,6 +529,26 @@ section { padding-block: 1.75rem; }
 }
 .formulario textarea { min-height: 5rem; }
 
+/* Casilla de autorizacion: texto e input en linea, no el ancho completo */
+.formulario__casilla {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-weight: 400;
+}
+.formulario__casilla input[type="checkbox"] {
+  width: auto;
+  margin-top: 0.2rem;
+}
+
+/* Nota de sugerencia (clasificacion SCIAN local, sin MCP todavia) */
+.lv-sugerencia {
+  font-size: 0.85rem;
+  color: var(--gris-fuerte);
+  margin-top: 0.5rem;
+}
+.lv-sugerencia__texto { margin: 0; }
+
 /* ----- 15. Pie ----- */
 .pie {
   border-top: 2px solid var(--azul);

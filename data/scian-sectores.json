@@ -1,0 +1,39 @@
+{
+  "_comentario": "SCIAN Mexico 2018, nivel SECTOR (2 digitos), catalogo oficial de INEGI. Es un subconjunto de muestra a nivel sector para el modelo: el catalogo completo baja hasta 'clase' (6 digitos, mas de 1000 codigos) y no se reproduce aqui. Sirve para dar una primera clasificacion; el representante del negocio siempre puede corregirla a mano.",
+  "fuente": "INEGI, Sistema de Clasificacion Industrial de America del Norte (SCIAN) Mexico 2018, nivel sector",
+  "sectores": [
+    { "codigo": "11", "nombre": "Agricultura, cria y explotacion de animales, aprovechamiento forestal, pesca y caza" },
+    { "codigo": "21", "nombre": "Mineria" },
+    { "codigo": "22", "nombre": "Generacion, transmision y distribucion de energia electrica, suministro de agua y de gas por ductos" },
+    { "codigo": "23", "nombre": "Construccion" },
+    { "codigo": "31-33", "nombre": "Industrias manufactureras" },
+    { "codigo": "43", "nombre": "Comercio al por mayor" },
+    { "codigo": "46", "nombre": "Comercio al por menor" },
+    { "codigo": "48-49", "nombre": "Transportes, correos y almacenamiento" },
+    { "codigo": "51", "nombre": "Informacion en medios masivos" },
+    { "codigo": "52", "nombre": "Servicios financieros y de seguros" },
+    { "codigo": "53", "nombre": "Servicios inmobiliarios y de alquiler de bienes muebles e intangibles" },
+    { "codigo": "54", "nombre": "Servicios profesionales, cientificos y tecnicos" },
+    { "codigo": "55", "nombre": "Direccion de corporativos y empresas" },
+    { "codigo": "56", "nombre": "Servicios de apoyo a los negocios y manejo de residuos, y servicios de remediacion" },
+    { "codigo": "61", "nombre": "Servicios educativos" },
+    { "codigo": "62", "nombre": "Servicios de salud y de asistencia social" },
+    { "codigo": "71", "nombre": "Servicios de esparcimiento culturales y deportivos, y otros servicios recreativos" },
+    { "codigo": "72", "nombre": "Servicios de alojamiento temporal y de preparacion de alimentos y bebidas" },
+    { "codigo": "81", "nombre": "Otros servicios excepto actividades gubernamentales" },
+    { "codigo": "93", "nombre": "Actividades legislativas, gubernamentales, de imparticion de justicia y de organismos internacionales" }
+  ],
+  "sugerencia_por_categoria": {
+    "_comentario": "Mapeo de las categorias en palabras de vecino (data/categorias.json) a un sector SCIAN por default. Es un punto de partida, no una regla fija: un negocio puede caer en otro sector segun lo que realmente haga.",
+    "comida-y-abarrotes": "46",
+    "donde-comer": "72",
+    "talleres-y-refacciones": "81",
+    "esteticas-y-barberias": "81",
+    "ferreterias-y-material": "46",
+    "para-la-casa-y-servicios": "23",
+    "salud-y-farmacias": "62",
+    "mascotas-y-veterinarias": "54",
+    "ropa-y-calzado": "46",
+    "fiestas-y-eventos": "56"
+  }
+}

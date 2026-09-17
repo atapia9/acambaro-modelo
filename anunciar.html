@@ -7,7 +7,7 @@
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Anunciar mi negocio — acambaro.com.mx</title>
   <meta name="description" content="Espacios de anunciante en el directorio de Acambaro: portada, categoria y ficha basica. Precios de prueba.">
-  <link rel="stylesheet" href="assets/css/estilo.css?v=2">
+  <link rel="stylesheet" href="assets/css/estilo.css?v=3">
 </head>
 <body class="sitio-portal">
   <a class="saltar" href="#principal">Saltar al contenido</a>
@@ -81,6 +81,80 @@
       <a class="boton" href="https://wa.me/524170000000" rel="noopener" target="_blank">Escribir por WhatsApp (numero de ejemplo)</a>
     </section>
 
+    <!-- SECCION: levantamiento del negocio, clasificacion SCIAN sugerida y autorizacion
+         del representante. La clasificacion la pintara mas adelante un MCP propio; hoy
+         es un sustituto local (ver assets/js/levantamiento.js y
+         docs/mcp-clasificacion-integracion.md). -->
+    <section id="levantamiento" aria-labelledby="levantamiento-titulo">
+      <h2 id="levantamiento-titulo">Levantamiento y autorizacion</h2>
+      <p>Antes de publicar una ficha se levantan los datos del negocio y se pide la
+        autorizacion de un representante. Aqui se sugiere tambien a que sector SCIAN
+        (INEGI) corresponde el negocio.</p>
+      <p class="nota-ficticio">
+        La clasificacion que se ve aqui es una <strong>sugerencia local del modelo</strong>,
+        no una conexion real. El formulario tampoco envia nada todavia: ver
+        <a href="docs/mcp-clasificacion-integracion.md">docs/mcp-clasificacion-integracion.md</a>.
+      </p>
+
+      <form id="lv-formulario" class="formulario" aria-label="Levantamiento del negocio">
+        <p>
+          <label for="lv-nombre">Nombre del negocio</label>
+          <input type="text" id="lv-nombre" name="nombre">
+        </p>
+        <p>
+          <label for="lv-giro">Que hace el negocio (breve)</label>
+          <textarea id="lv-giro" name="giro"></textarea>
+        </p>
+        <p>
+          <label for="lv-categoria">Categoria del directorio</label>
+          <select id="lv-categoria" name="categoria">
+            <option value="">Seleccione</option>
+          </select>
+        </p>
+        <p>
+          <button type="button" id="lv-sugerir" class="boton boton--claro">Sugerir clasificacion SCIAN</button>
+        </p>
+        <div id="lv-sugerencia-nota" class="lv-sugerencia" aria-live="polite"></div>
+        <p>
+          <label for="lv-scian">Clasificacion SCIAN (INEGI)</label>
+          <select id="lv-scian" name="scian">
+            <option value="">Seleccione o use la sugerencia</option>
+          </select>
+        </p>
+        <p>
+          <label for="lv-direccion">Direccion</label>
+          <input type="text" id="lv-direccion" name="direccion">
+        </p>
+        <p>
+          <label for="lv-whatsapp">Telefono o WhatsApp</label>
+          <input type="tel" id="lv-whatsapp" name="whatsapp">
+        </p>
+
+        <h3>Autorizacion del representante</h3>
+        <p>Quien firma debe estar autorizado por el negocio para publicar esta ficha.</p>
+        <p>
+          <label for="lv-rep-nombre">Nombre de quien autoriza</label>
+          <input type="text" id="lv-rep-nombre" name="representante" autocomplete="name">
+        </p>
+        <p>
+          <label for="lv-rep-cargo">Cargo en el negocio</label>
+          <input type="text" id="lv-rep-cargo" name="cargo">
+        </p>
+        <p>
+          <label class="formulario__casilla">
+            <input type="checkbox" id="lv-autoriza" name="autoriza">
+            Autorizo la publicacion de estos datos en el directorio de acambaro.com.mx.
+          </label>
+        </p>
+        <p class="lv-sugerencia">La fecha de esta autorizacion se registra al enviar. Vea el
+          <a href="aviso-de-privacidad.html">aviso de privacidad</a>.</p>
+        <p>
+          <button type="button" id="lv-enviar" class="boton">Enviar solicitud (desactivado en el modelo)</button>
+        </p>
+        <p id="lv-confirmacion" class="nota-ficticio" hidden></p>
+      </form>
+    </section>
+
   </main>
 
   <footer class="pie">
@@ -91,5 +165,6 @@
   </footer>
 
   <script src="assets/js/espacios.js?v=2"></script>
+  <script src="assets/js/levantamiento.js?v=1"></script>
 </body>
 </html>
