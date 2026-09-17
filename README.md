@@ -101,6 +101,25 @@ o un script, sube ese numero (`?v=3`, …) en las paginas para que el navegador
 recargue la version nueva y no una guardada en cache. Los `data/*.json` no necesitan
 esto: se piden siempre frescos.
 
+### Cache de las paginas `.html` — limite real de GitHub Pages
+
+Cada `.html` lleva `<meta http-equiv="Cache-Control" content="no-cache, no-store,
+must-revalidate">` (mas `Pragma` y `Expires`) en el `<head>`. Ayuda en herramientas
+viejas o intermediarios que todavia leen esa etiqueta, pero **hay que ser honestos
+sobre lo que no arregla**: los navegadores actuales (Chrome, Safari, Firefox) ignoran
+esa etiqueta para decidir el cache real y obedecen el encabezado HTTP que manda el
+servidor. GitHub Pages responde `Cache-Control: max-age=600` en cada `.html` —
+confirmado con `curl -I`— y **no hay archivo de configuracion en este repo que pueda
+cambiar eso** (a diferencia de Netlify o Cloudflare Pages, que sí leen un `_headers`).
+
+En la practica: despues de publicar un cambio, alguien que ya visito la pagina puede
+seguir viendo la version anterior hasta por 10 minutos, o menos si su navegador
+revalida antes. Se soluciona solo, o al instante con una recarga forzada
+(Ctrl/Cmd+Shift+R). Si mas adelante esto molesta de verdad, la solucion real es mudar
+el hosting a algo que sí deje fijar encabezados (Cloudflare Pages, Netlify) o meter un
+`Service Worker` — ninguna de las dos se hizo aqui para no salirse de "sitio estatico
+sin build".
+
 ---
 
 ## Estructura del repositorio
