@@ -18,11 +18,11 @@ La decision que este modelo existe para resolver (SDDA en la raiz o en subdomini
 propio) esta en **`DECISION-P1.md`**, junto con el plan de diseno.
 
 > ## Aviso
-> **Todos los negocios de este modelo son ficticios.** No corresponden a ningun
-> negocio real de Acambaro. Cada ficha lleva el campo `"ficticio": true` y se
-> muestra con la etiqueta **"Negocio de ejemplo"**. Los telefonos son ceros.
-> Los precios de `data/tarifas.json` marcados como `"supuesto"` son de prueba,
-> no son una oferta.
+> **Los negocios con `"ficticio": true` son ficticios.** No corresponden a ningun
+> negocio real de Acambaro; se muestran con la etiqueta **"Negocio de ejemplo"** y
+> sus telefonos son ceros. Un negocio con `"ficticio": false` es real y se publica
+> solo con la autorizacion de su representante. Los precios de `data/tarifas.json`
+> marcados como `"supuesto"` son de prueba, no son una oferta.
 
 ---
 
