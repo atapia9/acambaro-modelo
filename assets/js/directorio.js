@@ -228,7 +228,10 @@
     if (!cont) return;
     cont.innerHTML = "";
 
-    var enEspacio = negocios.slice(0, TOPE_CATEGORIA);
+    // El modelo aun no tiene dato de quien paga un lugar por categoria (espacios.json solo cubre la
+    // portada), asi que solo los negocios de ejemplo simulan un lugar de pago. Sin este filtro, cualquier
+    // ficha real quedaria rotulada como "pagan por aparecer arriba" sin haber pagado.
+    var enEspacio = negocios.filter(function (n) { return n.ficticio; }).slice(0, TOPE_CATEGORIA);
     enEspacio.forEach(function (n, i) { cont.appendChild(tarjetaEspacioCat(n, i + 1)); });
 
     var libres = Math.max(TOPE_CATEGORIA - enEspacio.length, 0);
@@ -295,8 +298,11 @@
     volver.appendChild(vlink);
     cont.appendChild(volver);
 
-    cont.appendChild(el("p", "nota-ficticio",
-      "Negocio de ejemplo. Los datos de esta ficha son ficticios y no corresponden a ningun negocio real de Acambaro."));
+    // Solo las fichas de ejemplo llevan el aviso: una ficha real no puede decir que es ficticia.
+    if (n.ficticio) {
+      cont.appendChild(el("p", "nota-ficticio",
+        "Negocio de ejemplo. Los datos de esta ficha son ficticios y no corresponden a ningun negocio real de Acambaro."));
+    }
   }
 
   /* ---------- Arranque ---------- */
