@@ -63,6 +63,10 @@ autoriza.
    porque una lista que no filtre por `pendiente` lo sigue mostrando, así que depende de que quien contacte filtre; y
    falta definir quién y cómo registra una negativa que llega por otro canal (por ejemplo, al correo de contacto).
 
+10. **El texto de consentimiento del formulario.** En `anunciar.html`, la casilla «Autorizo la publicacion de estos
+    datos…» y el párrafo que la antecede (que enumera lo que se publica y lo que no) son el consentimiento en sí, y
+    los redactó Claude junto con el aviso. Deben coincidir con el aviso y revisarlos la misma persona.
+
 ## 5. Lo que este borrador no cubre
 
 - El formulario de diagnóstico (`sdda/diagnostico.html`) y la clasificación SCIAN por MCP: hoy no envían nada. Sus

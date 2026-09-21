@@ -151,7 +151,10 @@ quiere reusar el mismo texto en la portada de SDDA.
 
 ## 11. Levantamiento del negocio, clasificación SCIAN y el MCP
 
-Detalle completo en `docs/mcp-clasificacion-integracion.md`. Resumen para WordPress:
+Detalle completo en `docs/mcp-clasificacion-integracion.md`. Resumen para WordPress.
+
+**Decisión:** la ficha publicada y su autorización viven en WordPress, no en la base de prospección
+(`docs/decision-dueno-de-la-ficha.md`). Por eso el formulario crea el post `anunciante` y guarda ahí la autorización.
 
 | Elemento del modelo | En WordPress se vuelve | Notas |
 |---|---|---|
@@ -159,6 +162,9 @@ Detalle completo en `docs/mcp-clasificacion-integracion.md`. Resumen para WordPr
 | Campo "giro" del formulario de levantamiento | Meta del CPT `anunciante`: `giro_descripcion` | Es el texto que se manda al clasificador (real o humano). |
 | `sugerirClasificacionScian()` (stub) | **Llamada server-side** desde PHP (WordPress) al backend que expone el MCP (opción A de la §4 del doc de integración) | El navegador del visitante nunca debe hablar directo con el backend de clasificación: la petición sale del servidor de WordPress, no del cliente. Evita exponer credenciales y facilita el CORS (ya no aplica, es servidor a servidor). |
 | Autorización del representante (`#levantamiento`) | Meta del CPT `anunciante`: `representante_nombre`, `representante_cargo`, `autorizacion_aceptada` (bool), `autorizacion_fecha` | Se guarda con el estado del post en `pending` hasta que alguien de SDDA lo revise y publique. |
+| Campos de la ficha del formulario (descripción, dirección, horario, teléfono, WhatsApp) | Los meta de la §1: `descripcion`, `direccion`, `horario`, `telefono`, `whatsapp` | El teléfono y el WhatsApp solo se publican si se escriben: no se copian del DENUE ni del enriquecimiento. |
+| Vínculo con la base de prospección | Meta del CPT `anunciante`: `id_denue` (texto) | Lo asigna quien revisa, buscando el negocio por nombre y dirección. Sirve para marcar en `acambaro-db` que el negocio ya está dado de alta. |
+| Medio de la autorización | Meta del CPT `anunciante`: `autorizacion_medio` | `formulario` para lo que llega por el sitio; `en persona`, `whatsapp` o `correo` para lo que capture alguien de SDDA. |
 | Envío del formulario | **Kadence Blocks Form** → webhook o Action Scheduler que crea el post `anunciante` en `pending` y dispara la clasificación | Reemplaza el `console.log` del modelo. |
 
 **Por qué server-side y no en el navegador:** un MCP se piensa para que lo hable un

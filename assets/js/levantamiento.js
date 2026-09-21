@@ -112,13 +112,23 @@
     var btnEnviar = document.getElementById("lv-enviar");
     if (btnEnviar) {
       btnEnviar.addEventListener("click", function () {
+        function campo(id) { return document.getElementById(id).value.trim(); }
+        // Forma del registro = lo que pide la ficha (docs/decision-dueno-de-la-ficha.md, seccion 6). Cada
+        // campo corresponde a un meta del CPT `anunciante` de WordPress; el de contacto solo se publica si se escribe.
         var registro = {
-          negocio: document.getElementById("lv-nombre").value.trim(),
+          negocio: campo("lv-nombre"),
+          giro: campo("lv-giro"),
           categoria: selCategoria.value,
           scian_elegido: selScian.value,
-          representante: document.getElementById("lv-rep-nombre").value.trim(),
-          cargo: document.getElementById("lv-rep-cargo").value.trim(),
+          descripcion: campo("lv-descripcion"),
+          direccion: campo("lv-direccion"),
+          horario: campo("lv-horario"),
+          telefono: campo("lv-telefono"),
+          whatsapp: campo("lv-whatsapp"),
+          representante: campo("lv-rep-nombre"),
+          cargo: campo("lv-rep-cargo"),
           autoriza: document.getElementById("lv-autoriza").checked,
+          medio: "formulario",
           fecha: new Date().toISOString()
         };
         console.log("[autorizacion-representante]", registro);

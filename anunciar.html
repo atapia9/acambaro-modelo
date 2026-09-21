@@ -97,6 +97,8 @@
         La clasificacion que se ve aqui es una <strong>sugerencia local del modelo</strong>,
         no una conexion real. El formulario tampoco envia nada todavia: ver
         <a href="docs/mcp-clasificacion-integracion.md">docs/mcp-clasificacion-integracion.md</a>.
+        Donde vivira la ficha una vez enviada esta en
+        <a href="docs/decision-dueno-de-la-ficha.md">docs/decision-dueno-de-la-ficha.md</a>.
       </p>
 
       <form id="lv-formulario" class="formulario" aria-label="Levantamiento del negocio">
@@ -125,16 +127,31 @@
           </select>
         </p>
         <p>
+          <label for="lv-descripcion">Descripcion para la ficha (opcional)</label>
+          <textarea id="lv-descripcion" name="descripcion"></textarea>
+        </p>
+        <p>
           <label for="lv-direccion">Direccion</label>
           <input type="text" id="lv-direccion" name="direccion">
         </p>
         <p>
-          <label for="lv-whatsapp">Telefono o WhatsApp</label>
+          <label for="lv-horario">Horario (opcional)</label>
+          <input type="text" id="lv-horario" name="horario">
+        </p>
+        <p>
+          <label for="lv-telefono">Telefono (opcional)</label>
+          <input type="tel" id="lv-telefono" name="telefono" autocomplete="tel">
+        </p>
+        <p>
+          <label for="lv-whatsapp">WhatsApp (opcional)</label>
           <input type="tel" id="lv-whatsapp" name="whatsapp">
         </p>
+        <p class="lv-sugerencia">Solo se publica el telefono y el WhatsApp que escriba aqui.</p>
 
         <h3>Autorizacion del representante</h3>
         <p>Quien firma debe estar autorizado por el negocio para publicar esta ficha.</p>
+        <p>En la ficha se publica lo que escribio arriba: nombre, a que se dedica, categoria, descripcion,
+          direccion, horario, telefono y WhatsApp. El nombre y el cargo de quien autoriza no se publican.</p>
         <p>
           <label for="lv-rep-nombre">Nombre de quien autoriza</label>
           <input type="text" id="lv-rep-nombre" name="representante" autocomplete="name">
@@ -168,6 +185,6 @@
   </footer>
 
   <script src="assets/js/espacios.js?v=2"></script>
-  <script src="assets/js/levantamiento.js?v=1"></script>
+  <script src="assets/js/levantamiento.js?v=2"></script>
 </body>
 </html>

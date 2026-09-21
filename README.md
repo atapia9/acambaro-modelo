@@ -158,6 +158,8 @@ sin build".
 /docs/benchmark-precios-v1.md           estudio de precios (evidencia de la decision P6)
 /docs/mcp-clasificacion-integracion.md  estado y contrato para conectar el MCP de SCIAN
 /docs/crm-diagnostico-integracion.md    estado y contrato para conectar el diagnostico a un CRM
+/docs/decision-dueno-de-la-ficha.md     decision: WordPress es el dueno de la ficha publicada y del formulario de alta
+/docs/aviso-de-privacidad-revision.md   que cambio en el aviso y que debe revisar una persona (borrador)
 /DECISION-P1.md             plan de diseno + decision raiz vs. subdominio
 /A-WORDPRESS.md             puente a WordPress + Kadence
 /README.md
