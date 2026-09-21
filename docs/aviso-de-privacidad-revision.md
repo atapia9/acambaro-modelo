@@ -22,7 +22,7 @@ autoriza.
 | Para qué se usan | Se agregan publicar la ficha, guardar constancia de la autorización e invitar a negocios del DENUE | Orden `autorizar`; el contacto en frío es parte del flujo de captación |
 | Qué se publica y qué no (nueva) | Aclara qué sale y que lo publicado es público y copiable | Lista blanca del exportador; representante, cargo, medio, fecha y notas nunca salen |
 | Con quién se comparten | Aclara que la ficha es pública por decisión del negocio | — |
-| Cómo ejercer tus derechos | Se agregan cambio de ficha, baja, borrado y no volver a contactar | `retirar` la saca del directorio y conserva la autorización; `retirar --purgar` borra también quién autorizó |
+| Cómo ejercer tus derechos | Se agregan cambio de ficha, baja, borrado y no volver a contactar | `retirar` la saca del directorio y conserva la autorización; `retirar --purgar` borra también quién autorizó; el estado `no contactar` registra la negativa a ser contactado |
 
 ## 3. Lo que hace el sistema hoy (comprobable)
 
@@ -32,6 +32,8 @@ autoriza.
 - Retirar una ficha la quita del directorio en la siguiente exportación, pero **conserva** el registro de la autorización y de la baja.
 - `retirar --purgar` borra la ficha y con ella quién autorizó. No se puede deshacer.
 - El proceso es manual: la baja no es inmediata, depende de que se exporte y se suba el archivo.
+- Un negocio marcado `no contactar` queda fuera de las hojas de enriquecimiento y `autorizar` avisa; no desaparece
+  de la base ni de los libros de trabajo.
 
 ## 4. Puntos abiertos para quien revise (no los resolví)
 
@@ -55,10 +57,11 @@ autoriza.
 8. **Respuesta a solicitudes.** Se dejó el plazo de 20 días hábiles que ya tenía el aviso, y «la siguiente
    actualización del directorio» para retirar una ficha. Falta confirmar que ambos se pueden cumplir en la
    práctica con el proceso manual.
-9. **Cómo se respalda «no se le vuelve a escribir».** El aviso lo promete, pero el seguimiento de contactos de la
-   base solo tiene los estados `pendiente`, `contactado`, `interesado`, `no interesado`, `sin respuesta` y
-   `dato inválido`. Ninguno distingue «no me interesa» de «no me contacten» (una oposición). Falta decidir si se
-   agrega un estado propio, para que la negativa quede registrada y se pueda filtrar.
+9. **Cómo se respalda «no se le vuelve a escribir».** El seguimiento de contactos de la base no distinguía «no me
+   interesa» de «no me contacten» (una oposición), así que se agregó el estado `no contactar`. Las hojas de
+   enriquecimiento lo dejan fuera y `autorizar` avisa si un negocio lo tiene. Lo que sigue abierto: no es un candado,
+   porque una lista que no filtre por `pendiente` lo sigue mostrando, así que depende de que quien contacte filtre; y
+   falta definir quién y cómo registra una negativa que llega por otro canal (por ejemplo, al correo de contacto).
 
 ## 5. Lo que este borrador no cubre
 
