@@ -49,7 +49,8 @@ La alternativa era que `acambaro-db` fuera el dueño y WordPress solo mostrara u
 - **El JSON que exporta ya tiene la forma de la semilla.** Sus campos coinciden con los meta del CPT (`A-WORDPRESS.md`
   §1) y `fecha_alta` se mapea al `post_date`. Sirve para la importación de una sola vez.
 - **Las autorizaciones ya registradas se migran a WordPress**, o se pierde la constancia. El JSON público **no** las
-  lleva a propósito (representante, cargo, medio), así que hará falta una exportación privada aparte.
+  lleva a propósito (representante, cargo, medio), así que hará falta una exportación privada aparte. Esa exportación
+  debe incluir la huella de cada token (§9), para que los representantes conserven su contraseña sin tener que pedir otra.
 - **`no contactar` se queda en `acambaro-db`:** es un dato de prospección, no de la ficha.
 
 ## 6. Qué pide hoy el formulario de alta y a dónde va
@@ -74,6 +75,7 @@ corresponde según `A-WORDPRESS.md`:
 | Fecha | `autorizacion_fecha` | La pone el servidor al recibirla |
 | (automático) | `id_denue` | **Meta nuevo**: lo asigna quien revisa, buscando el negocio por nombre y dirección |
 | (automático) | `autorizacion_medio` = `formulario` | **Meta nuevo**: distingue las altas del formulario de las que alguien de SDDA capture a mano |
+| (automático) | `token_hash` | **Meta nuevo**: la huella del token de la contraseña (§9). No se muestra ni se exporta |
 
 El teléfono y el WhatsApp solo se publican si se escriben: no se copian del DENUE ni del enriquecimiento.
 
@@ -86,10 +88,11 @@ El formulario **no normaliza** lo que se escribe (guarda «417 102 4117» tal cu
 comprueba la identidad de quien pide (por ejemplo, llamando al teléfono registrado), corrige nombre y dirección, y
 publica → se marca en `acambaro-db` que ese negocio ya está dado de alta.
 
-**Cambio y baja.** También en WordPress. Antes hay que poder comprobar quién pide el cambio: si no, cualquiera podría
-pedir la baja o modificar la ficha de otro (por ejemplo, con un código al teléfono, WhatsApp o correo de la ficha).
-Una baja retira la ficha del sitio y, si se pide, borra los datos personales de quien autorizó. Mientras eso no exista,
-se piden por correo, como dice el aviso de privacidad, y alguien lo aplica a mano.
+**Cambio y baja.** También en WordPress. Antes hay que comprobar quién los pide: si no, cualquiera podría pedir la baja o
+modificar la ficha de otro. **La comprobación es un token que se emite en el alta** (§9): el representante lo recibe una
+sola vez y es su contraseña para cambios y bajas. Una baja retira la ficha del sitio y anula su token y, si se pide,
+borra los datos personales de quien autorizó. Mientras los formularios no existan, se piden por correo, como dice el aviso
+de privacidad, y alguien los aplica a mano con `autorizar` y `retirar`, que ya exigen el token.
 
 ## 8. Lo que queda abierto
 
@@ -98,10 +101,36 @@ se piden por correo, como dice el aviso de privacidad, y alguien lo aplica a man
 2. **La exportación privada de las autorizaciones** (§5) para migrarlas a WordPress.
 3. **El hosting de WordPress y lo que permite Kadence Blocks Form** (formulario de varios pasos, webhooks, Action
    Scheduler). No se ha verificado.
-4. **Cómo comprobar la identidad** para cambio y baja (§7).
+4. **El token en WordPress** (§9): dónde se muestra o se envía al terminar el alta, cuántos intentos fallidos se permiten
+   antes de bloquear, y cómo se comprueba en el formulario de cambio y de baja.
 5. **El aviso de privacidad:** su revisión debe tener en cuenta que los datos de quien autoriza vivirán en WordPress
    y en el proveedor que lo aloje (punto 6 de `aviso-de-privacidad-revision.md`).
 6. **La fecha de la migración.**
+
+## 9. El token: la contraseña para cambios y bajas
+
+Decidido el 21 de septiembre de 2026. Ya funciona en la base de prospección (`exportar_directorio.py`), y lo que sigue es lo
+que debe cumplir también WordPress cuando tome el relevo.
+
+- **Qué es.** Un valor aleatorio de 80 bits, en 16 letras y números en grupos de 4 (`ABCD-EFGH-JKLM-NPQR`), que se emite en
+  cada alta. Es una **contraseña, no un identificador**: el identificador de la ficha es `id_denue` (y el de su entrada en
+  WordPress); mezclar las dos cosas obligaría a guardar en claro algo que no debe estarlo.
+- **Se muestra una sola vez** y se entrega al representante en el momento del alta. **En la base solo se guarda su huella
+  (SHA-256)**: quien tenga acceso a la base no puede leerlo ni reenviarlo. Un token perdido no se recupera: se comprueba la
+  identidad de otra forma y se emite uno nuevo, y el anterior deja de servir.
+- **Lo exigen** el cambio, la baja y la emisión de uno nuevo. Si la identidad se comprobó por otra vía (por ejemplo, llamando al
+  teléfono registrado), quien opera lo indica y **queda anotado con la fecha**.
+- **Se anula** al retirar la ficha. Volver a darla de alta es un consentimiento nuevo y emite un token nuevo.
+- **Nunca sale** al JSON público ni se muestra en ninguna pantalla después del alta.
+- **En WordPress** debe guardarse solo la huella (meta `token_hash`, el mismo SHA-256 del token sin guiones y en mayúsculas), se
+  debe limitar los intentos fallidos al comprobarlo, y no debe registrarse el token en ningún log. Las huellas de las fichas ya
+  registradas se migran junto con sus autorizaciones (§5).
+
+**Por qué solo la huella.** Es una contraseña que se guarda en un archivo dentro de un repositorio de git. Con 80 bits de
+azar basta una huella sin más ceremonia, y si la base se filtra los tokens no se filtran con ella.
+
+**Límite conocido.** El token protege contra quien no lo tiene, no contra quien se lo quite al representante: quien lo tenga
+puede cambiar o retirar la ficha. Por eso conviene entregarlo por un canal que se controle.
 
 ---
 Este material se elaboró con asistencia de Claude (Anthropic).

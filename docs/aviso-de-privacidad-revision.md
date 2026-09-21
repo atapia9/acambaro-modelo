@@ -32,6 +32,9 @@ autoriza.
 - Retirar una ficha la quita del directorio en la siguiente exportación, pero **conserva** el registro de la autorización y de la baja.
 - `retirar --purgar` borra la ficha y con ella quién autorizó. No se puede deshacer.
 - El proceso es manual: la baja no es inmediata, depende de que se exporte y se suba el archivo.
+- Al dar de alta, el representante recibe un token que es su contraseña para cambios y bajas. Se guarda solo su huella,
+  no el token; cambiar o retirar una ficha lo exige, y si se comprobó la identidad de otra forma queda anotado. Al retirar
+  la ficha el token se anula (`docs/decision-dueno-de-la-ficha.md` §9).
 - Un negocio marcado `no contactar` queda fuera de las hojas de enriquecimiento y `autorizar` avisa; no desaparece
   de la base ni de los libros de trabajo.
 
