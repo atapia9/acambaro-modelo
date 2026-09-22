@@ -1,4 +1,4 @@
-# DECISION-P1
+# DECISION-P1 — resuelta el 22 de septiembre de 2026 (raíz, no subdominio)
 
 Modelo navegable de dos sitios hermanos (Portal + SDDA) en un repo.
 Este documento tiene dos partes: el **plan de diseño** y la **decisión de arquitectura P1**.
@@ -65,9 +65,15 @@ La primera versión **sí** lo era: tarjetas con radio de 12px y sombra suave, u
 
 Empieza en la raíz, subcarpeta `/sdda/`. Cabe en 30 minutos diarios, reusa todo lo ya construido y el portal sirve de prueba de trabajo frente al dueño de negocio. El subdominio resuelve un problema —métricas y correo propios— que hoy no existe porque no hay tráfico ni clientes. Es reversible con redirecciones 301 si a 30 días la evidencia dice otra cosa. No cierres esto hasta ver el modelo funcionando en el celular.
 
-### 6. Qué observar a 30 días para saber que la decisión fue equivocada
+### 6. Decisión — 22 de septiembre de 2026
 
-**Fecha de revisión: 2026-10-03.**
+**Resuelto: Opción A, raíz.** SDDA se queda en `/sdda/`, dentro de `acambaro.com.mx`. Armando confirmó la recomendación de la §5 después de usar el modelo funcionando en el celular durante varias semanas: la Actualización 01 (rejilla de categorías), el formulario de levantamiento, el modo oscuro, el gadget de clima y la fusión con el trabajo de negocios reales se construyeron todos sobre esa misma raíz, sin fricción. No se crea subdominio ni dominio propio por ahora.
+
+Esta sección es la que cierra el dilema de la §1: deja de ser un default y pasa a ser una decisión tomada, con fecha y con el compromiso de revisarla si la evidencia de la §7 dice lo contrario.
+
+### 7. Qué observar para saber si la decisión fue equivocada
+
+**Fecha de revisión: 22 de octubre de 2026** (30 días desde la decisión).
 
 - Si más de la mitad de los interesados en SDDA preguntan "¿esto es del ayuntamiento o una empresa?" → la subcarpeta confunde: mover a subdominio.
 - Si hace falta correo `@sdda` y no se puede montar sin dominio separado → subdominio ya.

@@ -14,8 +14,10 @@ Este modelo se traduce despues a WordPress con el tema Kadence. El HTML esta
 escrito por secciones (`<section>` con `id`) para que cada seccion se vuelva un
 bloque. Ver **`A-WORDPRESS.md`**.
 
-La decision que este modelo existe para resolver (SDDA en la raiz o en subdominio
-propio) esta en **`DECISION-P1.md`**, junto con el plan de diseno.
+La decision que este modelo existia para resolver (SDDA en la raiz o en subdominio
+propio) **ya se resolvio el 22 de septiembre de 2026: se queda en la raiz** (`/sdda/`).
+Detalle, criterios y fecha de revision (22 de octubre de 2026) en **`DECISION-P1.md`**,
+junto con el plan de diseno.
 
 > ## Aviso
 > **Los negocios con `"ficticio": true` son ficticios.** No corresponden a ningun
@@ -195,7 +197,7 @@ disponible" y no rompe nada mas de la pagina.
 /docs/crm-diagnostico-integracion.md    estado y contrato para conectar el diagnostico a un CRM
 /docs/decision-dueno-de-la-ficha.md     decision: WordPress es el dueno de la ficha publicada y del formulario de alta
 /docs/aviso-de-privacidad-revision.md   que cambio en el aviso y que debe revisar una persona (borrador)
-/DECISION-P1.md             plan de diseno + decision raiz vs. subdominio
+/DECISION-P1.md             plan de diseno + decision raiz vs. subdominio (resuelta)
 /A-WORDPRESS.md             puente a WordPress + Kadence
 /README.md
 /LICENSE                    MIT (codigo)
