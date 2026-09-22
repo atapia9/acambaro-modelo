@@ -228,7 +228,10 @@
     if (!cont) return;
     cont.innerHTML = "";
 
-    var enEspacio = negocios.slice(0, TOPE_CATEGORIA);
+    // El modelo aun no tiene dato de quien paga un lugar por categoria (espacios.json solo cubre la
+    // portada), asi que solo los negocios de ejemplo simulan un lugar de pago. Sin este filtro, cualquier
+    // ficha real quedaria rotulada como "pagan por aparecer arriba" sin haber pagado.
+    var enEspacio = negocios.filter(function (n) { return n.ficticio; }).slice(0, TOPE_CATEGORIA);
     enEspacio.forEach(function (n, i) { cont.appendChild(tarjetaEspacioCat(n, i + 1)); });
 
     var libres = Math.max(TOPE_CATEGORIA - enEspacio.length, 0);
@@ -295,8 +298,22 @@
     volver.appendChild(vlink);
     cont.appendChild(volver);
 
-    cont.appendChild(el("p", "nota-ficticio",
-      "Negocio de ejemplo. Los datos de esta ficha son ficticios y no corresponden a ningun negocio real de Acambaro."));
+    // Solo las fichas de ejemplo llevan el aviso: una ficha real no puede decir que es ficticia.
+    if (n.ficticio) {
+      cont.appendChild(el("p", "nota-ficticio",
+        "Negocio de ejemplo. Los datos de esta ficha son ficticios y no corresponden a ningun negocio real de Acambaro."));
+    }
+  }
+
+  /* ---------- Fuente de los datos (INEGI) ---------- */
+  // Los negocios reales parten de datos del DENUE (INEGI), cuyos terminos de libre uso piden citar la
+  // fuente y aclarar que se transformaron. El texto viene de directorio.json ("fuente", lo escribe
+  // exportar_directorio.py) y solo se muestra si hay al menos un negocio real: los de ejemplo no salen del DENUE.
+  function pintarFuente(datos) {
+    var hayReales = (datos.negocios || []).some(function (n) { return !n.ficticio; });
+    var primero = document.querySelector("footer.pie .contenedor p");
+    if (!hayReales || !datos.fuente || !primero) return;
+    primero.parentNode.insertBefore(el("p", "pie-fuente", datos.fuente), primero.nextSibling);
   }
 
   /* ---------- Arranque ---------- */
@@ -310,6 +327,7 @@
       var negocios = res[0].negocios || [];
       var categorias = res[1].categorias || [];
       var conteo = contarPorCategoria(negocios);
+      pintarFuente(res[0]);
 
       var mapaCat = {};        // id -> nombre
       var categoriasPorId = {}; // id -> objeto categoria

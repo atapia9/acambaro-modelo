@@ -8,8 +8,8 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>Diagnostico expres gratuito de 45 minutos — SDDA</title>
-  <meta name="description" content="Agende el diagnostico expres de SDDA: 45 minutos, sin costo, sin compromiso. Formulario del modelo, sin envio real todavia.">
+  <title>Diagnostico Express gratuito de 45 minutos — SDDA</title>
+  <meta name="description" content="Agende el diagnostico Express de SDDA: 45 minutos, sin costo, sin compromiso. Formulario del modelo, sin envio real todavia.">
   <link rel="stylesheet" href="../assets/css/estilo.css?v=3">
   <script src="../assets/js/tema.js?v=1" defer></script>
   <script src="../assets/js/clima.js?v=1" defer></script>
@@ -39,7 +39,7 @@
   <main id="principal" class="contenedor">
 
     <section id="diag-intro">
-      <h1>Diagnostico expres de 45 minutos</h1>
+      <h1>Diagnostico Express de 45 minutos</h1>
       <p>Sin costo y sin compromiso de contratar. Se hace por llamada o en persona en Acambaro. La agenda la confirmamos por telefono en un plazo de 2 dias habiles.</p>
     </section>
 
@@ -84,8 +84,9 @@
           <textarea id="f-tema" name="tema"></textarea>
         </p>
         <p>
-          <button type="button" class="boton">Enviar solicitud (desactivado en el modelo)</button>
+          <button type="button" id="diag-enviar" class="boton">Enviar solicitud (desactivado en el modelo)</button>
         </p>
+        <p id="diag-confirmacion" class="nota-ficticio" hidden></p>
       </form>
     </section>
 
@@ -106,5 +107,7 @@
       </p>
     </div>
   </footer>
+
+  <script src="../assets/js/diagnostico.js?v=1"></script>
 </body>
 </html>

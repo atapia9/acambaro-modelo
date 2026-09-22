@@ -18,11 +18,11 @@ La decision que este modelo existe para resolver (SDDA en la raiz o en subdomini
 propio) esta en **`DECISION-P1.md`**, junto con el plan de diseno.
 
 > ## Aviso
-> **Todos los negocios de este modelo son ficticios.** No corresponden a ningun
-> negocio real de Acambaro. Cada ficha lleva el campo `"ficticio": true` y se
-> muestra con la etiqueta **"Negocio de ejemplo"**. Los telefonos son ceros.
-> Los precios de `data/tarifas.json` marcados como `"supuesto"` son de prueba,
-> no son una oferta.
+> **Los negocios con `"ficticio": true` son ficticios.** No corresponden a ningun
+> negocio real de Acambaro; se muestran con la etiqueta **"Negocio de ejemplo"** y
+> sus telefonos son ceros. Un negocio con `"ficticio": false` es real y se publica
+> solo con la autorizacion de su representante. Los precios de `data/tarifas.json`
+> marcados como `"supuesto"` son de prueba, no son una oferta.
 
 ---
 
@@ -93,6 +93,15 @@ conectado a ningun backend ni a ningun MCP todavia**: la sugerencia SCIAN es un 
 local (`assets/js/levantamiento.js`) y el boton de enviar solo escribe en la consola del
 navegador. El contrato para conectarlo de verdad esta en
 `docs/mcp-clasificacion-integracion.md`.
+
+### Formulario de diagnostico (sdda/diagnostico.html)
+
+El formulario de "Pedir la sesion" junta nombre, negocio, telefono, tamano del equipo
+y tema. **No esta conectado a ningun CRM todavia**: al dar clic en enviar,
+`assets/js/diagnostico.js` arma el lead con una forma fija y solo lo escribe en la
+consola del navegador (mismo patron que el levantamiento de arriba). El contrato de
+datos y los caminos para conectarlo de verdad estan en
+`docs/crm-diagnostico-integracion.md`.
 
 ### Al cambiar un `.js` o un `.css`
 
@@ -172,6 +181,7 @@ disponible" y no rompe nada mas de la pagina.
 /assets/js/levantamiento.js formulario de alta, sugerencia SCIAN local (sin MCP aun)
 /assets/js/tema.js          interruptor de modo claro/oscuro
 /assets/js/clima.js         gadget de clima (Open-Meteo, unica llamada externa)
+/assets/js/diagnostico.js   formulario de diagnostico, lead local (sin CRM aun)
 /data/espacios.json
 /data/directorio.json
 /data/tarifas.json
@@ -182,6 +192,9 @@ disponible" y no rompe nada mas de la pagina.
 /docs/portada-380x740.png               captura de esa prueba
 /docs/benchmark-precios-v1.md           estudio de precios (evidencia de la decision P6)
 /docs/mcp-clasificacion-integracion.md  estado y contrato para conectar el MCP de SCIAN
+/docs/crm-diagnostico-integracion.md    estado y contrato para conectar el diagnostico a un CRM
+/docs/decision-dueno-de-la-ficha.md     decision: WordPress es el dueno de la ficha publicada y del formulario de alta
+/docs/aviso-de-privacidad-revision.md   que cambio en el aviso y que debe revisar una persona (borrador)
 /DECISION-P1.md             plan de diseno + decision raiz vs. subdominio
 /A-WORDPRESS.md             puente a WordPress + Kadence
 /README.md
