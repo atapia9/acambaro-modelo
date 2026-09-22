@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self' https://api.open-meteo.com; object-src 'none'; base-uri 'self'; form-action 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
@@ -12,9 +12,17 @@
   <meta name="description" content="Aviso de privacidad del directorio de Acambaro. Borrador para el modelo.">
   <link rel="stylesheet" href="assets/css/estilo.css?v=3">
   <script src="assets/js/tema.js?v=1" defer></script>
+  <script src="assets/js/clima.js?v=1" defer></script>
 </head>
 <body class="sitio-portal">
   <a class="saltar" href="#principal">Saltar al contenido</a>
+
+  <div class="clima" aria-live="polite">
+    <div class="contenedor">
+      <span id="clima-texto">Clima: cargando…</span>
+      <a class="clima__fuente" href="https://open-meteo.com" rel="noopener" target="_blank">Datos: Open-Meteo</a>
+    </div>
+  </div>
 
   <header class="cabecera">
     <div class="contenedor">
@@ -51,7 +59,12 @@
       </ul>
 
       <h2>Con quien se comparten</h2>
-      <p>No se venden ni se comparten con terceros para fines de mercadotecnia. Este sitio no carga recursos de otros dominios (fuentes, iconos o analitica externa).</p>
+      <p>No se venden ni se comparten datos personales con terceros para fines de mercadotecnia. Este sitio carga sus fuentes, estilos y logica desde su propio dominio.</p>
+      <p><strong>Una excepcion declarada:</strong> el dato del clima que se ve arriba de cada pagina se pide a
+        <a href="https://open-meteo.com" rel="noopener" target="_blank">Open-Meteo</a>, un servicio publico y
+        gratuito. Esa peticion no manda ningun dato de quien visita el sitio: solo pide el clima de las
+        coordenadas fijas de Acambaro, no la ubicacion del visitante. Es la unica conexion a un dominio ajeno
+        en todo el sitio.</p>
 
       <h2>Como ejercer tus derechos</h2>
       <p>Para acceder, rectificar, cancelar u oponerte al uso de tus datos (derechos ARCO), escribe al correo de contacto de SDDA. La respuesta se da en un plazo maximo de 20 dias habiles.</p>

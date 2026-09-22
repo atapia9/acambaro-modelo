@@ -109,6 +109,22 @@ button:focus-visible,
 }
 .saltar:focus { left: 0; }
 
+/* ----- 3b. Gadget de clima (esquina superior) -----
+   Unica llamada a un dominio ajeno de todo el sitio (assets/js/clima.js, Open-Meteo).
+   Declarado en aviso-de-privacidad.html. */
+.clima { padding-top: 0.3rem; }
+.clima .contenedor {
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  color: var(--gris-fuerte);
+}
+.clima__fuente { color: var(--gris-fuerte); text-decoration: underline; }
+.clima__fuente:hover { color: var(--azul-texto); }
+
 /* ----- 4. Contenedor ----- */
 .contenedor {
   width: 100%;

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self' https://api.open-meteo.com; object-src 'none'; base-uri 'self'; form-action 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
@@ -12,9 +12,17 @@
   <meta name="description" content="Negocios de Acambaro por categoria. Modelo de prueba.">
   <link rel="stylesheet" href="assets/css/estilo.css?v=3">
   <script src="assets/js/tema.js?v=1" defer></script>
+  <script src="assets/js/clima.js?v=1" defer></script>
 </head>
 <body class="sitio-portal">
   <a class="saltar" href="#principal">Saltar al contenido</a>
+
+  <div class="clima" aria-live="polite">
+    <div class="contenedor">
+      <span id="clima-texto">Clima: cargando…</span>
+      <a class="clima__fuente" href="https://open-meteo.com" rel="noopener" target="_blank">Datos: Open-Meteo</a>
+    </div>
+  </div>
 
   <header class="cabecera">
     <div class="contenedor">

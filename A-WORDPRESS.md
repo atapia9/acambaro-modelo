@@ -146,6 +146,8 @@ quiere reusar el mismo texto en la portada de SDDA.
 | `assets/js/levantamiento.js` | Ver §11: el sustituto local de la clasificación SCIAN se sustituye por una llamada real, y el envío del formulario pasa a Kadence Forms + REST. |
 | `?v=2`/`?v=3` en los `<link>`/`<script>` | En WordPress lo maneja `wp_enqueue_*` con su parámetro de versión; el `?v=` manual del modelo desaparece. |
 | `data/*.json` | Datos semilla para poblar el CPT, la taxonomía y las opciones al montar el sitio (script de importación de una sola vez). |
+| `assets/js/tema.js` | El toggle claro/oscuro se resuelve igual en WordPress: un pequeño script en el `<head>` del tema hijo, con la misma lógica de `localStorage` + `prefers-color-scheme`. Los tokens de color van a los ajustes globales de Kadence, no cambia el enfoque. |
+| `assets/js/clima.js` | Único punto que llama a un dominio externo (Open-Meteo). En WordPress puede quedar igual (JS de cliente) o moverse a un pequeño *transient* cacheado en el servidor para no depender de que cada visitante tenga la API disponible. De cualquier forma, hay que declarar la excepción en la política de privacidad del sitio final. |
 
 ---
 

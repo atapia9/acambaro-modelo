@@ -134,6 +134,25 @@ cambia es la superficie de la pagina y el texto que va sobre ella (`--blanco`,
 `--tinta`, los grises y `--azul-texto`). Ver el comentario al inicio de
 `assets/css/estilo.css`.
 
+### Gadget de clima — la unica llamada a un dominio ajeno de todo el sitio
+
+Arriba de cada pagina, en la esquina superior, se ve el clima de Acambaro
+(`assets/js/clima.js`), con datos reales de [Open-Meteo](https://open-meteo.com):
+gratuito, sin llave ni registro. Se actualiza solo cada 30 minutos.
+
+Esto **rompe a proposito** la regla de "todo local" que sigue el resto del sitio —
+es la unica excepcion, y esta declarada en tres lugares para que no se pierda:
+
+1. Aqui, en el README.
+2. En la CSP (`connect-src`) de cada `.html`, que solo permite `'self'` y
+   `https://api.open-meteo.com`.
+3. En `aviso-de-privacidad.html`, seccion "Con quien se comparten".
+
+No se manda ningun dato de quien visita el sitio: las coordenadas de Acambaro
+(20.0339, -100.7344) estan fijas en el codigo, no se pide la ubicacion del
+visitante. Si el servicio falla o no hay conexion, el gadget dice "Clima no
+disponible" y no rompe nada mas de la pagina.
+
 ---
 
 ## Estructura del repositorio
@@ -152,6 +171,7 @@ cambia es la superficie de la pagina y el texto que va sobre ella (`--blanco`,
 /assets/js/directorio.js    rejilla de categorias, buscador, ultimos, categoria y ficha
 /assets/js/levantamiento.js formulario de alta, sugerencia SCIAN local (sin MCP aun)
 /assets/js/tema.js          interruptor de modo claro/oscuro
+/assets/js/clima.js         gadget de clima (Open-Meteo, unica llamada externa)
 /data/espacios.json
 /data/directorio.json
 /data/tarifas.json
