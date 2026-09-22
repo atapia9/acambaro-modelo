@@ -120,6 +120,20 @@ el hosting a algo que sí deje fijar encabezados (Cloudflare Pages, Netlify) o m
 `Service Worker` — ninguna de las dos se hizo aqui para no salirse de "sitio estatico
 sin build".
 
+### Modo claro / oscuro
+
+Boton "Modo oscuro" / "Modo claro" en el encabezado de las 8 paginas
+(`assets/js/tema.js`). Sin eleccion explicita usa el tema del sistema
+(`prefers-color-scheme`); al tocar el boton, la eleccion se guarda en
+`localStorage` (clave `sdda-tema`) y manda sobre el sistema en ese navegador.
+
+Los colores de relleno (`--azul`, `--azul-oscuro`, `--ambar`) y el texto que va
+encima de ellos (`--blanco-fijo`, `--tinta-fija`) **no cambian con el tema**: una
+tarjeta de espacio de anunciante se ve igual de amarilla en los dos modos. Lo que
+cambia es la superficie de la pagina y el texto que va sobre ella (`--blanco`,
+`--tinta`, los grises y `--azul-texto`). Ver el comentario al inicio de
+`assets/css/estilo.css`.
+
 ---
 
 ## Estructura del repositorio
@@ -137,6 +151,7 @@ sin build".
 /assets/js/espacios.js      banda de destacados + tabla de tarifas
 /assets/js/directorio.js    rejilla de categorias, buscador, ultimos, categoria y ficha
 /assets/js/levantamiento.js formulario de alta, sugerencia SCIAN local (sin MCP aun)
+/assets/js/tema.js          interruptor de modo claro/oscuro
 /data/espacios.json
 /data/directorio.json
 /data/tarifas.json
