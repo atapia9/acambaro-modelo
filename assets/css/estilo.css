@@ -86,6 +86,9 @@ body {
   font-size: 1rem;
 }
 h1, h2, h3 { line-height: 1.2; font-weight: 700; color: var(--azul-texto); }
+/* Cuando un h2/h3 sigue a texto normal dentro de la MISMA seccion (no al abrir una
+   seccion nueva, que ya trae su propio padding-block), le falta aire sin esto. */
+p + h2, p + h3, ul + h2, ul + h3, ol + h2, ol + h3 { margin-top: 1.5em; }
 h1 { font-size: 1.6rem; }
 h2 { font-size: 1.25rem; }
 h3 { font-size: 1.05rem; }
