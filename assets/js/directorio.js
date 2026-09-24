@@ -7,12 +7,9 @@
   var TOPE_CATEGORIA = 12; // segundo nivel de inventario: hasta 12 destacados por categoria
   var N_ULTIMOS = 5;       // cuantos negocios recientes se muestran en la portada
 
-  function el(tag, clase, texto) {
-    var n = document.createElement(tag);
-    if (clase) n.className = clase;
-    if (texto != null) n.textContent = texto;
-    return n;
-  }
+  var el = Util.el;
+  var traer = Util.traer;
+  var botonWhatsApp = Util.botonWhatsApp;
 
   function parametro(nombre) {
     return new URLSearchParams(window.location.search).get(nombre);
@@ -29,11 +26,6 @@
 
   function registrarClic(negocioId, tipo) {
     console.log("[clic-directorio]", { negocio: negocioId, tipo: tipo, fecha: new Date().toISOString() });
-  }
-
-  // Version fresca del archivo: al editar un data/*.json y recargar se ve el cambio.
-  function traer(ruta) {
-    return fetch(ruta, { cache: "no-store" }).then(function (r) { return r.json(); });
   }
 
   function cargar() {
@@ -213,10 +205,7 @@
     art.appendChild(el("span", "espacio__pos", "Lugar " + lugar + " de " + TOPE_CATEGORIA));
 
     if (negocio.whatsapp) {
-      var wa = el("a", "espacio__wa", "Escribir por WhatsApp");
-      wa.href = "https://wa.me/" + negocio.whatsapp;
-      wa.rel = "noopener";
-      wa.target = "_blank";
+      var wa = botonWhatsApp(negocio.whatsapp, "espacio__wa");
       wa.addEventListener("click", function () { registrarClic(negocio.id, "whatsapp"); });
       art.appendChild(wa);
     }
@@ -284,10 +273,7 @@
     cont.appendChild(dl);
 
     if (n.whatsapp) {
-      var wa = el("a", "boton", "Escribir por WhatsApp");
-      wa.href = "https://wa.me/" + n.whatsapp;
-      wa.rel = "noopener";
-      wa.target = "_blank";
+      var wa = botonWhatsApp(n.whatsapp, "boton");
       wa.addEventListener("click", function () { registrarClic(n.id, "whatsapp"); });
       cont.appendChild(wa);
     }

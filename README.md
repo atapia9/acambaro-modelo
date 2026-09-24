@@ -178,6 +178,7 @@ disponible" y no rompe nada mas de la pagina.
 /sdda/servicios.html
 /sdda/diagnostico.html
 /assets/css/estilo.css      hoja unica, variables en :root
+/assets/js/util.js          helpers compartidos (crear elementos, fetch fresco, boton de WhatsApp)
 /assets/js/espacios.js      banda de destacados + tabla de tarifas
 /assets/js/directorio.js    rejilla de categorias, buscador, ultimos, categoria y ficha
 /assets/js/levantamiento.js formulario de alta, sugerencia SCIAN local (sin MCP aun)

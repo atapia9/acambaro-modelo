@@ -12,16 +12,8 @@
 (function () {
   "use strict";
 
-  function el(tag, clase, texto) {
-    var n = document.createElement(tag);
-    if (clase) n.className = clase;
-    if (texto != null) n.textContent = texto;
-    return n;
-  }
-
-  function traer(ruta) {
-    return fetch(ruta, { cache: "no-store" }).then(function (r) { return r.json(); });
-  }
+  var el = Util.el;
+  var traer = Util.traer;
 
   /* ---------- Sustituto local de la clasificacion SCIAN (sin MCP) ---------- */
   function sugerirClasificacionScian(datosNegocio, scianData) {

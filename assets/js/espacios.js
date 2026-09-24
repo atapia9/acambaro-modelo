@@ -8,15 +8,13 @@
   var HOY = new Date().toISOString().slice(0, 10); // 'YYYY-MM-DD' del navegador
   var LIMITE_MOVIL = 6; // en celular la banda muestra 6 y un enlace "ver los demas"
 
+  var el = Util.el;
+  var traer = Util.traer;
+  var botonWhatsApp = Util.botonWhatsApp;
+
   // En pantallas anchas se muestran todos los activos; en celular se recortan a 6.
   function esEscritorio() {
     return window.matchMedia && window.matchMedia("(min-width: 640px)").matches;
-  }
-
-  // Se pide siempre la version fresca del archivo: asi, al cambiar un data/*.json
-  // y recargar, se ve el cambio sin tener que limpiar la cache del navegador.
-  function traer(ruta) {
-    return fetch(ruta, { cache: "no-store" }).then(function (r) { return r.json(); });
   }
 
   /* ---------- Registro de clic ----------
@@ -30,13 +28,6 @@
       tipo: tipo,
       fecha: new Date().toISOString()
     });
-  }
-
-  function el(tag, clase, texto) {
-    var n = document.createElement(tag);
-    if (clase) n.className = clase;
-    if (texto != null) n.textContent = texto;
-    return n;
   }
 
   /* ---------- Tarjeta de un espacio activo ---------- */
@@ -60,10 +51,7 @@
     art.appendChild(el("span", "espacio__pos", "Lugar " + esp.posicion));
 
     if (negocio.whatsapp) {
-      var wa = el("a", "espacio__wa", "Escribir por WhatsApp");
-      wa.href = "https://wa.me/" + negocio.whatsapp;
-      wa.rel = "noopener";
-      wa.target = "_blank";
+      var wa = botonWhatsApp(negocio.whatsapp, "espacio__wa");
       wa.addEventListener("click", function () {
         registrarClic(esp.posicion, negocio.id, "whatsapp");
       });
